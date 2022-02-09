@@ -89,10 +89,10 @@ class BowlerFile {
      * 
      */
 
-	public static Vector getBowlers()
+	public static Vector<String> getBowlers()
 		throws IOException, FileNotFoundException {
 
-		Vector allBowlers = new Vector();
+		Vector<String> allBowlers = new Vector<String>();
 
 		BufferedReader in = new BufferedReader(new FileReader(BOWLER_DAT));
 		String data;
@@ -102,6 +102,7 @@ class BowlerFile {
 			//"Nick: bowler[0] Full: bowler[1] email: bowler[2]
 			allBowlers.add(bowler[0]);
 		}
+		in.close();
 		return allBowlers;
 	}
 
