@@ -27,3 +27,11 @@ hs_err_pid*
 .classpath
 out/
 .project
+
+# Code MR
+codemr
+
+bin
+
+# Score Output
+SCOREHISTORY.DAT
