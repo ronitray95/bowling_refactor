@@ -225,7 +225,7 @@ class ControlDesk extends Thread {
      * @return a HashSet of Lanes
      */
 
-    public HashSet getLanes() {
+    public HashSet<Lane> getLanes() {
         return lanes;
     }
 }
