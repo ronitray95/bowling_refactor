@@ -35,3 +35,4 @@ bin
 
 # Score Output
 SCOREHISTORY.DAT
+*.dat
