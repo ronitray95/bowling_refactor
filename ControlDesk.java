@@ -39,6 +39,9 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Vector;
+import models.Bowler;
+import models.Party;
+import models.ControlDeskEvent;
 
 /**
  * Class that represents control desk

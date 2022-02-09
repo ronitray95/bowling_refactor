@@ -135,6 +135,9 @@ import java.util.Vector;
 import java.util.Iterator;
 import java.util.HashMap;
 import java.util.Date;
+import models.LaneEvent;
+import models.Bowler;
+import models.Party;
 
 public class Lane extends Thread implements PinsetterObserver {	
 	private Party party;

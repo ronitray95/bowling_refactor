@@ -1,6 +1,6 @@
 /**
  * 
- * SMTP implementation based on code by Réal Gagnon mailto:real@rgagnon.com
+ * SMTP implementation based on code by Rï¿½al Gagnon mailto:real@rgagnon.com
  * 
  */
 
@@ -11,6 +11,8 @@ import java.util.Iterator;
 import java.net.*;
 import java.awt.*;
 import java.awt.print.*;
+import models.Bowler;
+import models.Score;
 
 public class ScoreReport {
 

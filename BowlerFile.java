@@ -19,6 +19,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Vector;
+import models.Bowler;
 
 /**
  * Class for interfacing with Bowler database

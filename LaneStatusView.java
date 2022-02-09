@@ -11,6 +11,8 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
+import models.LaneEvent;
+import models.Bowler;
 
 public class LaneStatusView implements ActionListener, LaneObserver, PinsetterObserver {
 

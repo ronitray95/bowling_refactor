@@ -14,6 +14,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Iterator;
 import java.util.Vector;
+import models.Bowler;
+import models.Party;
+import models.LaneEvent;
 
 public class EndGameReport implements ActionListener, ListSelectionListener {
 

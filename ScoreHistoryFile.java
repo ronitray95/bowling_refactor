@@ -8,6 +8,7 @@
 
 import java.util.*;
 import java.io.*;
+import models.Score;
 
 public class ScoreHistoryFile {
 

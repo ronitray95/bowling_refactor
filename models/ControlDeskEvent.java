@@ -8,6 +8,8 @@
  *
  */
 
+package models;
+
 import java.util.Vector;
 
 /**

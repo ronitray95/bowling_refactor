@@ -7,6 +7,9 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
+import models.LaneEvent;
+import models.Bowler;
+import models.Party;
 
 public class LaneView implements LaneObserver, ActionListener {
 

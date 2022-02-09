@@ -8,6 +8,8 @@
  *
  */
 
+import models.ControlDeskEvent;
+
 /**
  * Interface for classes that observe control desk events
  */

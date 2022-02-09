@@ -18,6 +18,8 @@ import java.awt.event.WindowEvent;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Vector;
+import models.ControlDeskEvent;
+
 
 /**
  * Class for representation of the control desk

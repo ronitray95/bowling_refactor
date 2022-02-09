@@ -17,6 +17,8 @@
  *
  */
 
+package models;
+
 /**
  * Class that holds all bowler info
  */

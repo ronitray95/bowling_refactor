@@ -29,6 +29,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
+import models.Bowler;
+import models.Party;
+import models.ControlDeskEvent;
 
 /**
  * Class for GUI components need to add a party

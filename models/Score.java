@@ -6,6 +6,8 @@
  * Window>Preferences>Java>Code Generation.
  */
 
+package models;
+
 public class Score {
 
     private String nick;
