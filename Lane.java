@@ -131,10 +131,12 @@
  * 
  */
 
-import java.util.Vector;
+
+ import java.util.Vector;
 import java.util.Iterator;
 import java.util.HashMap;
 import java.util.Date;
+import java.util.Observer;
 import models.LaneEvent;
 import models.Bowler;
 import models.Party;
@@ -163,6 +165,7 @@ public class Lane extends Thread implements PinsetterObserver {
 	private int gameNumber;
 	
 	private Bowler currentThrower;			// = the thrower who just took a throw
+	private LanePublisher publisher;
 
 	/** Lane()
 	 * 
@@ -175,6 +178,7 @@ public class Lane extends Thread implements PinsetterObserver {
 		setter = new Pinsetter();
 		scores = new HashMap();
 		subscribers = new Vector();
+		publisher = new LanePublisher();
 
 		gameIsHalted = false;
 		partyAssigned = false;
@@ -419,7 +423,7 @@ public class Lane extends Thread implements PinsetterObserver {
 	 * @return		The new lane event
 	 */
 	private LaneEvent lanePublish(  ) {
-		LaneEvent laneEvent = new LaneEvent(party, bowlIndex, currentThrower, cumulScores, scores, frameNumber+1, curScores, ball, gameIsHalted);
+		LaneEvent laneEvent = new LaneEvent(party, bowlIndex, currentThrower, cumulScores, scores, frameNumber+1, curScores, ball, gameIsHalted, isPartyAssigned());
 		return laneEvent;
 	}
 
@@ -563,8 +567,8 @@ public class Lane extends Thread implements PinsetterObserver {
 	 * @param subscribe	Observer that is to be added
 	 */
 
-	public void subscribe( LaneObserver adding ) {
-		subscribers.add( adding );
+	public void subscribe( Observer adding ) {
+		publisher.addObserver(adding);
 	}
 
 	/** unsubscribe
@@ -574,8 +578,8 @@ public class Lane extends Thread implements PinsetterObserver {
 	 * @param removing	The observer to be removed
 	 */
 	
-	public void unsubscribe( LaneObserver removing ) {
-		subscribers.remove( removing );
+	public void unsubscribe( Observer removing ) {
+		publisher.deleteObserver(removing);
 	}
 
 	/** publish
@@ -586,14 +590,17 @@ public class Lane extends Thread implements PinsetterObserver {
 	 */
 
 	public void publish( LaneEvent event ) {
-		if( subscribers.size() > 0 ) {
-			Iterator eventIterator = subscribers.iterator();
+		// if( subscribers.size() > 0 ) {
+		// 	Iterator eventIterator = subscribers.iterator();
 			
-			while ( eventIterator.hasNext() ) {
-				( (LaneObserver) eventIterator.next()).receiveLaneEvent( event );
-			}
-		}
+		// 	while ( eventIterator.hasNext() ) {
+		// 		( (LaneObserver) eventIterator.next()).receiveLaneEvent( event );
+		// 	}
+		// }
+		publisher.publish(event);
 	}
+
+
 
 	/**
 	 * Accessor to get this Lane's pinsetter

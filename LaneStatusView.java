@@ -11,10 +11,12 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
+import java.util.Observer;
+import java.util.Observable;
 import models.LaneEvent;
 import models.Bowler;
 
-public class LaneStatusView implements ActionListener, LaneObserver, PinsetterObserver {
+public class LaneStatusView implements ActionListener, PinsetterObserver, Observer {
 
 	private JPanel jp;
 
@@ -134,12 +136,12 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 		}
 	}
 
-	public void receiveLaneEvent(LaneEvent le) {
-		curBowler.setText( ( (Bowler)le.getBowler()).getNickName() );
-		if ( le.isMechanicalProblem() ) {
+	public void update(Observable lane, Object le) {
+		curBowler.setText(((Bowler)((LaneEvent)le).getBowler()).getNickName() );
+		if ( ((LaneEvent)le).isMechanicalProblem() ) {
 			maintenance.setBackground( Color.RED );
 		}	
-		if ( lane.isPartyAssigned() == false ) {
+		if ( ((LaneEvent)le).isPartyAssigned == false ) {
 			viewLane.setEnabled( false );
 			viewPinSetter.setEnabled( false );
 		} else {

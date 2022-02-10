@@ -38,8 +38,9 @@ public class LaneEvent {
 	int frameNum;
 	int[] curScores;
 	boolean mechProb;
+	public boolean isPartyAssigned;
 	
-	public LaneEvent( Party pty, int theIndex, Bowler theBowler, int[][] theCumulScore, HashMap<Bowler, int[]> theScore, int theFrameNum, int[] theCurScores, int theBall, boolean mechProblem) {
+	public LaneEvent( Party pty, int theIndex, Bowler theBowler, int[][] theCumulScore, HashMap<Bowler, int[]> theScore, int theFrameNum, int[] theCurScores, int theBall, boolean mechProblem, boolean isPartyAssigned) {
 		p = pty;
 		index = theIndex;
 		bowler = theBowler;
@@ -49,6 +50,7 @@ public class LaneEvent {
 		frameNum = theFrameNum;
 		ball = theBall;	
 		mechProb = mechProblem;
+		this.isPartyAssigned = isPartyAssigned;
 	}
 	
 	public boolean isMechanicalProblem() {
