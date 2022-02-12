@@ -17,38 +17,38 @@
  *
  */
 
-/**
- *  Container that holds bowlers
- *
- */
-
 package models;
 
-import java.util.*;
+import java.util.Vector;
 
+/**
+ * Container that holds bowlers
+ */
 public class Party {
 
-	/** Vector of bowlers in this party */	
+    /**
+     * Vector of bowlers in this party
+     */
     private Vector<Bowler> myBowlers;
-	
-	/**
-	 * Constructor for a Party
-	 * 
-	 * @param bowlers	Vector of bowlers that are in this party
-	 */
-		
-    public Party( Vector<Bowler> bowlers ) {
-		myBowlers = new Vector<Bowler>(bowlers);
+
+    /**
+     * Constructor for a Party
+     *
+     * @param bowlers Vector of bowlers that are in this party
+     */
+
+    public Party(Vector<Bowler> bowlers) {
+        myBowlers = new Vector<>(bowlers);
     }
 
-	/**
-	 * Accessor for members in this party
-	 * 
-	 * @return 	A vector of the bowlers in this party
-	 */
+    /**
+     * Accessor for members in this party
+     *
+     * @return A vector of the bowlers in this party
+     */
 
     public Vector<Bowler> getMembers() {
-		return myBowlers;
+        return myBowlers;
     }
 
 }
