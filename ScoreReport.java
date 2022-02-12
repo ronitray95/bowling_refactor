@@ -1,33 +1,36 @@
 /**
- * 
  * SMTP implementation based on code by R�al Gagnon mailto:real@rgagnon.com
- * 
  */
 
-
-import java.io.*;
-import java.util.Vector;
-import java.util.Iterator;
-import java.net.*;
-import java.awt.*;
-import java.awt.print.*;
 import models.Bowler;
 import models.Score;
+
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.Socket;
+import java.util.Iterator;
+import java.util.Vector;
 
 public class ScoreReport {
 
 	private String content;
-	
-	public ScoreReport( Bowler bowler, int[] scores, int games ) {
+
+	public ScoreReport(Bowler bowler, int[] scores, int games) {
 		String nick = bowler.getNick();
 		String full = bowler.getFullName();
-		Vector v = null;
-		try{
+		Vector<Score> v = null;
+		try {
 			v = ScoreHistoryFile.getScores(nick);
-		} catch (Exception e){System.err.println("Error: " + e);}
-		
-		Iterator scoreIt = v.iterator();
-		
+		} catch (Exception e) {
+			System.err.println("Error: " + e);
+		}
+
+		Iterator<Score> scoreIt = v.iterator();
+
 		content = "";
 		content += "--Lucky Strike Bowling Alley Score Report--\n";
 		content += "\n";
@@ -35,16 +38,16 @@ public class ScoreReport {
 		content += "\n";
 		content += "Final scores for this session: ";
 		content += scores[0];
-		for (int i = 1; i < games; i++){
+		for (int i = 1; i < games; i++) {
 			content += ", " + scores[i];
 		}
 		content += ".\n";
 		content += "\n";
 		content += "\n";
 		content += "Previous scores by date: \n";
-		while (scoreIt.hasNext()){
-			Score score = (Score) scoreIt.next();
-			content += "  " + score.getDate() + " - " +  score.getScore();
+		while (scoreIt.hasNext()) {
+			Score score = scoreIt.next();
+			content += "  " + score.getDate() + " - " + score.getScore();
 			content += "\n";
 		}
 		content += "\n\n";
@@ -56,13 +59,13 @@ public class ScoreReport {
 		try {
 			Socket s = new Socket("osfmail.rit.edu", 25);
 			BufferedReader in =
-				new BufferedReader(
-					new InputStreamReader(s.getInputStream(), "8859_1"));
+					new BufferedReader(
+							new InputStreamReader(s.getInputStream(), "8859_1"));
 			BufferedWriter out =
-				new BufferedWriter(
-					new OutputStreamWriter(s.getOutputStream(), "8859_1"));
+					new BufferedWriter(
+							new OutputStreamWriter(s.getOutputStream(), "8859_1"));
 
-			String boundary = "DataSeparatorString";
+			//String boundary = "DataSeparatorString";
 
 			// here you are supposed to send your username
 			sendln(in, out, "HELO world");
@@ -95,7 +98,7 @@ public class ScoreReport {
 			try {
 				job.print();
 			} catch (PrinterException e) {
-				System.out.println(e);
+				System.err.println("ScoreReport error message " + e);
 			}
 		}
 
@@ -122,6 +125,4 @@ public class ScoreReport {
 			e.printStackTrace();
 		}
 	}
-
-
 }
