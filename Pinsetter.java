@@ -64,14 +64,17 @@
  *
  *
  */
+import models.PinsetterEvent;
 
 import java.util.Random;
 import java.util.Vector;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Class to represent the pinsetter
  */
-public class Pinsetter {
+public class Pinsetter extends Observable {
 
     private final Random rnd;
     private final Vector<PinsetterObserver> subscribers;
@@ -114,10 +117,12 @@ public class Pinsetter {
      * @post all subscribers have recieved pinsetter event with updated state
      */
     private void sendEvent(int jdpins) {    // send events when our state is changd
-        for (int i = 0; i < subscribers.size(); i++) {
-            subscribers.get(i).receivePinsetterEvent(
-                    new PinsetterEvent(pins, foul, throwNumber, jdpins));
-        }
+        // for (int i = 0; i < subscribers.size(); i++) {
+        //     subscribers.get(i).receivePinsetterEvent(
+        //             new PinsetterEvent(pins, foul, throwNumber, jdpins));
+        // }
+        setChanged();
+        notifyObservers(new PinsetterEvent(pins, foul, throwNumber, jdpins));
     }
 
     /**
@@ -202,8 +207,12 @@ public class Pinsetter {
      * @pre none
      * @post the subscriber object will recieve events when their generated
      */
-    public void subscribe(PinsetterObserver subscriber) {
-        subscribers.add(subscriber);
+    public void subscribe(Observer subscriber) {
+        addObserver(subscriber);
     }
+
+	public void unsubscribe( Observer subscriber ) {
+		deleteObserver(subscriber);
+	}
 
 }

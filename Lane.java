@@ -133,13 +133,14 @@
 import models.Bowler;
 import models.LaneEvent;
 import models.Party;
+import models.PinsetterEvent;
 
 import java.util.*;
 
-public class Lane extends Thread implements PinsetterObserver {
+public class Lane extends Thread implements Observer {
     private final Pinsetter setter;
     private final HashMap<Bowler, int[]> scores;
-    private final LanePublisher publisher;
+    private final LaneEventPublisher eventPublisher;
     //private final Vector subscribers;
     private Party party;
     private boolean gameIsHalted;
@@ -169,7 +170,7 @@ public class Lane extends Thread implements PinsetterObserver {
         setter = new Pinsetter();
         scores = new HashMap<>();
         //subscribers = new Vector();
-        publisher = new LanePublisher();
+        eventPublisher = new LaneEventPublisher();
 
         gameIsHalted = false;
         partyAssigned = false;
@@ -298,8 +299,9 @@ public class Lane extends Thread implements PinsetterObserver {
      * @pre none
      * @post the event has been acted upon if desiered
      */
-    public void receivePinsetterEvent(PinsetterEvent pe) {
-
+    public void update(Observable pinsetterObservable, Object pinsetterEvent) {
+        PinsetterEvent pe = (PinsetterEvent)pinsetterEvent;
+        Pinsetter pinsetter = (Pinsetter)pinsetterObservable;
         if (pe.pinsDownOnThisThrow() >= 0) {            // this is a real throw
             markScore(currentThrower, frameNumber + 1, pe.getThrowNumber(), pe.pinsDownOnThisThrow());
 
@@ -307,7 +309,7 @@ public class Lane extends Thread implements PinsetterObserver {
             // handle the case of 10th frame first
             if (frameNumber == 9) {
                 if (pe.totalPinsDown() == 10) {
-                    setter.resetPins();
+                    pinsetter.resetPins();
                     if (pe.getThrowNumber() == 1) {
                         tenthFrameStrike = true;
                     }
@@ -572,18 +574,18 @@ public class Lane extends Thread implements PinsetterObserver {
      */
 
     public void subscribe(Observer adding) {
-        publisher.addObserver(adding);
+        eventPublisher.addObserver(adding);
     }
 
 	/* unsubscribe
 	 * 
 	 * Method that unsubscribes an observer from this object
 	 * 
-	 * @param removing	The observer to be removed
+	 * @param removing	The observer to be removed*/
 
 	public void unsubscribe( Observer removing ) {
-		publisher.deleteObserver(removing);
-	}*/
+		eventPublisher.deleteObserver(removing);
+	}
 
     /**
      * publish
@@ -601,7 +603,7 @@ public class Lane extends Thread implements PinsetterObserver {
         // 		( (LaneObserver) eventIterator.next()).receiveLaneEvent( event );
         // 	}
         // }
-        publisher.publish(event);
+        eventPublisher.publish(event);
     }
 
 

@@ -16,6 +16,8 @@
  *
  */
 
+import models.PinsetterEvent;
+
 public interface PinsetterObserver {
 
     /**

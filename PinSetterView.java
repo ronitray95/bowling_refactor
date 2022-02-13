@@ -7,15 +7,18 @@
  * Revision:
  *   $Log$
  */
+import models.PinsetterEvent;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.Vector;
+import java.util.Observer;
+import java.util.Observable;
 
 /**
  * constructs a prototype PinSetter GUI
  */
-public class PinSetterView implements PinsetterObserver {
+public class PinSetterView implements Observer {
 
     private final Vector<JLabel> pinVect = new Vector<>();
     private final JPanel firstRoll;
@@ -179,7 +182,9 @@ public class PinSetterView implements PinsetterObserver {
      *
      * @param pe The state of the pinsetter is sent in this event.
      */
-    public void receivePinsetterEvent(PinsetterEvent pe) {
+    public void update(Observable pinsetterObservable, Object pinsetterEvent) {
+        PinsetterEvent pe = (PinsetterEvent)pinsetterEvent;
+        Pinsetter pinsetter = (Pinsetter)pinsetterObservable;
         if (!(pe.isFoulCommited())) {
             JLabel tempPin = new JLabel();
             for (int c = 0; c < 10; c++) {

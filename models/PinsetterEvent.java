@@ -12,6 +12,8 @@
  *
  */
 
+package models;
+
 public class PinsetterEvent {
 
     private final boolean[] pinsStillStanding;

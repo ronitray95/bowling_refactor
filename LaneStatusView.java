@@ -6,6 +6,7 @@
  */
 
 import models.LaneEvent;
+import models.PinsetterEvent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +15,7 @@ import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
-public class LaneStatusView implements ActionListener, PinsetterObserver, Observer {
+public class LaneStatusView implements ActionListener, Observer {
 
     private final JPanel jp;
     private final JLabel curBowler;
@@ -137,23 +138,27 @@ public class LaneStatusView implements ActionListener, PinsetterObserver, Observ
         }
     }
 
-    public void update(Observable lane, Object le) {
-        curBowler.setText(((LaneEvent) le).getBowler().getNickName());
-        if (((LaneEvent) le).isMechanicalProblem()) {
-            maintenance.setBackground(Color.RED);
-        }
-        if (!((LaneEvent) le).isPartyAssigned) {
-            viewLane.setEnabled(false);
-            viewPinSetter.setEnabled(false);
-        } else {
-            viewLane.setEnabled(true);
-            viewPinSetter.setEnabled(true);
+    public void update(Observable lane, Object event) {
+        if (event instanceof LaneEvent) {
+            curBowler.setText(((LaneEvent)event).getBowler().getNickName());
+            if (((LaneEvent) event).isMechanicalProblem()) {
+                maintenance.setBackground(Color.RED);
+            }
+            if (!((LaneEvent) event).isPartyAssigned) {
+                viewLane.setEnabled(false);
+                viewPinSetter.setEnabled(false);
+            } else {
+                viewLane.setEnabled(true);
+                viewPinSetter.setEnabled(true);
+            }
+        } else if(event instanceof PinsetterEvent) {
+            pinsDown.setText((new Integer(((PinsetterEvent)event).totalPinsDown())).toString());
         }
     }
 
-    public void receivePinsetterEvent(PinsetterEvent pe) {
-        pinsDown.setText((new Integer(pe.totalPinsDown())).toString());
-//		foul.setText( ( new Boolean(pe.isFoulCommited()) ).toString() );
+//     public void update(PinsetterEvent pe) {
+//         pinsDown.setText((new Integer(pe.totalPinsDown())).toString());
+// //		foul.setText( ( new Boolean(pe.isFoulCommited()) ).toString() );
 
-    }
+//     }
 }
