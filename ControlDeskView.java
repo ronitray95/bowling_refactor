@@ -18,13 +18,15 @@ import java.awt.event.WindowEvent;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Vector;
+import java.util.Observable;
+import java.util.Observer;
 import models.ControlDeskEvent;
 
 
 /**
  * Class for representation of the control desk
  */
-public class ControlDeskView implements ActionListener, ControlDeskObserver {
+public class ControlDeskView implements ActionListener, Observer {
 
     private final JButton addParty;
     private final JButton finished;
@@ -93,8 +95,8 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
         while (it.hasNext()) {
             Lane curLane = it.next();
             LaneStatusView laneStat = new LaneStatusView(curLane, (laneCount + 1));
-            curLane.subscribe(laneStat);
-            curLane.getPinsetter().subscribe(laneStat);
+            curLane.addObserver(laneStat);
+            curLane.getPinsetter().addObserver(laneStat);
             JPanel lanePanel = laneStat.showLane();
             lanePanel.setBorder(new TitledBorder("Lane" + ++laneCount));
             laneStatusPanel.add(lanePanel);
@@ -174,7 +176,10 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
      * @param ce the ControlDeskEvent that triggered the handler
      */
 
-    public void receiveControlDeskEvent(ControlDeskEvent ce) {
-        partyList.setListData(ce.getPartyQueue());
+    // public void receiveControlDeskEvent(ControlDeskEvent ce) {
+    //     partyList.setListData(ce.getPartyQueue());
+    // }
+    public void update(Observable lane, Object event) {
+        partyList.setListData(((ControlDeskEvent)event).getPartyQueue());
     }
 }

@@ -39,6 +39,7 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Vector;
+import java.util.Observer;
 import models.Bowler;
 import models.Party;
 import models.ControlDeskEvent;
@@ -64,9 +65,9 @@ class ControlDesk extends Thread {
     private final int numLanes;
 
     /**
-     * The collection of subscribers
+     * Acts as an observable that publishes events to all the subscribers of Control Desk.
      */
-    private final Vector<ControlDeskObserver> subscribers;
+    private final EventPublisher eventPublisher;
 
     /**
      * Constructor for the ControlDesk class
@@ -79,7 +80,7 @@ class ControlDesk extends Thread {
         lanes = new HashSet<>(numLanes);
         partyQueue = new Queue();
 
-        subscribers = new Vector<>();
+        eventPublisher = new EventPublisher();
 
         for (int i = 0; i < numLanes; i++) {
             lanes.add(new Lane());
@@ -199,15 +200,27 @@ class ControlDesk extends Thread {
         return numLanes;
     }
 
-    /**
-     * Allows objects to subscribe as observers
+   /**
+     * addObserver
+     * <p>
+     * Method that will add a subscriber
      *
-     * @param adding the ControlDeskObserver that will be subscribed
+     * @param adding Observer that is to be added
      */
 
-    public void subscribe(ControlDeskObserver adding) {
-        subscribers.add(adding);
+    public void addObserver(Observer adding) {
+        eventPublisher.addObserver(adding);
     }
+
+	/* deleteObserver
+	 * 
+	 * Method that unsubscribes an observer from this object
+	 * 
+	 * @param removing	The observer to be removed*/
+
+	public void deleteObserver( Observer removing ) {
+		eventPublisher.deleteObserver(removing);
+	}
 
     /**
      * Broadcast an event to subscribing objects.
@@ -216,10 +229,7 @@ class ControlDesk extends Thread {
      */
 
     public void publish(ControlDeskEvent event) {
-        Iterator<ControlDeskObserver> eventIterator = subscribers.iterator();
-        while (eventIterator.hasNext()) {
-            eventIterator.next().receiveControlDeskEvent(event);
-        }
+        eventPublisher.publish(event);
     }
 
     /**

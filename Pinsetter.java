@@ -68,17 +68,14 @@ import models.PinsetterEvent;
 
 import java.util.Random;
 import java.util.Vector;
-import java.util.Observable;
 import java.util.Observer;
 
 /**
  * Class to represent the pinsetter
  */
-public class Pinsetter extends Observable {
+public class Pinsetter {
 
     private final Random rnd;
-    private final Vector<PinsetterObserver> subscribers;
-
     private final boolean[] pins;
     /* 0-9 of state of pine, true for standing,
     false for knocked down
@@ -91,6 +88,7 @@ public class Pinsetter extends Observable {
     */
     private boolean foul;
     private int throwNumber;
+    private final EventPublisher eventPublisher;
 
     /**
      * Pinsetter()
@@ -101,9 +99,9 @@ public class Pinsetter extends Observable {
      * @post a new pinsetter is created
      */
     public Pinsetter() {
+        eventPublisher = new EventPublisher();
         pins = new boolean[10];
         rnd = new Random();
-        subscribers = new Vector<>();
         foul = false;
         reset();
     }
@@ -117,12 +115,7 @@ public class Pinsetter extends Observable {
      * @post all subscribers have recieved pinsetter event with updated state
      */
     private void sendEvent(int jdpins) {    // send events when our state is changd
-        // for (int i = 0; i < subscribers.size(); i++) {
-        //     subscribers.get(i).receivePinsetterEvent(
-        //             new PinsetterEvent(pins, foul, throwNumber, jdpins));
-        // }
-        setChanged();
-        notifyObservers(new PinsetterEvent(pins, foul, throwNumber, jdpins));
+        eventPublisher.publish(new PinsetterEvent(pins, foul, throwNumber, jdpins));
     }
 
     /**
@@ -186,6 +179,28 @@ public class Pinsetter extends Observable {
     }
 
     /**
+     * addObserver
+     * <p>
+     * Method that will add a subscriber
+     *
+     * @param adding Observer that is to be added
+     */
+
+    public void addObserver(Observer adding) {
+        eventPublisher.addObserver(adding);
+    }
+
+	/* deleteObserver
+	 * 
+	 * Method that unsubscribes an observer from this object
+	 * 
+	 * @param removing	The observer to be removed*/
+
+	public void deleteObserver( Observer removing ) {
+		eventPublisher.deleteObserver(removing);
+	}
+
+    /**
      * resetPins()
      * <p>
      * Reset the pins on the pinsetter
@@ -198,21 +213,5 @@ public class Pinsetter extends Observable {
             pins[i] = true;
         }
     }
-
-    /**
-     * subscribe()
-     * <p>
-     * subscribe objects to send events to
-     *
-     * @pre none
-     * @post the subscriber object will recieve events when their generated
-     */
-    public void subscribe(Observer subscriber) {
-        addObserver(subscriber);
-    }
-
-	public void unsubscribe( Observer subscriber ) {
-		deleteObserver(subscriber);
-	}
 
 }

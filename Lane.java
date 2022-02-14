@@ -140,7 +140,7 @@ import java.util.*;
 public class Lane extends Thread implements Observer {
     private final Pinsetter setter;
     private final HashMap<Bowler, int[]> scores;
-    private final LaneEventPublisher eventPublisher;
+    private final EventPublisher eventPublisher;
     //private final Vector subscribers;
     private Party party;
     private boolean gameIsHalted;
@@ -170,14 +170,14 @@ public class Lane extends Thread implements Observer {
         setter = new Pinsetter();
         scores = new HashMap<>();
         //subscribers = new Vector();
-        eventPublisher = new LaneEventPublisher();
+        eventPublisher = new EventPublisher();
 
         gameIsHalted = false;
         partyAssigned = false;
 
         gameNumber = 0;
 
-        setter.subscribe(this);
+        setter.addObserver(this);
 
         this.start();
     }
@@ -301,7 +301,6 @@ public class Lane extends Thread implements Observer {
      */
     public void update(Observable pinsetterObservable, Object pinsetterEvent) {
         PinsetterEvent pe = (PinsetterEvent)pinsetterEvent;
-        Pinsetter pinsetter = (Pinsetter)pinsetterObservable;
         if (pe.pinsDownOnThisThrow() >= 0) {            // this is a real throw
             markScore(currentThrower, frameNumber + 1, pe.getThrowNumber(), pe.pinsDownOnThisThrow());
 
@@ -309,7 +308,7 @@ public class Lane extends Thread implements Observer {
             // handle the case of 10th frame first
             if (frameNumber == 9) {
                 if (pe.totalPinsDown() == 10) {
-                    pinsetter.resetPins();
+                    setter.resetPins();
                     if (pe.getThrowNumber() == 1) {
                         tenthFrameStrike = true;
                     }
@@ -573,7 +572,7 @@ public class Lane extends Thread implements Observer {
      * @param adding Observer that is to be added
      */
 
-    public void subscribe(Observer adding) {
+    public void addObserver(Observer adding) {
         eventPublisher.addObserver(adding);
     }
 
@@ -583,7 +582,7 @@ public class Lane extends Thread implements Observer {
 	 * 
 	 * @param removing	The observer to be removed*/
 
-	public void unsubscribe( Observer removing ) {
+	public void deleteObserver( Observer removing ) {
 		eventPublisher.deleteObserver(removing);
 	}
 
@@ -596,13 +595,6 @@ public class Lane extends Thread implements Observer {
      */
 
     public void publish(LaneEvent event) {
-        // if( subscribers.size() > 0 ) {
-        // 	Iterator eventIterator = subscribers.iterator();
-
-        // 	while ( eventIterator.hasNext() ) {
-        // 		( (LaneObserver) eventIterator.next()).receiveLaneEvent( event );
-        // 	}
-        // }
         eventPublisher.publish(event);
     }
 

@@ -184,7 +184,6 @@ public class PinSetterView implements Observer {
      */
     public void update(Observable pinsetterObservable, Object pinsetterEvent) {
         PinsetterEvent pe = (PinsetterEvent)pinsetterEvent;
-        Pinsetter pinsetter = (Pinsetter)pinsetterObservable;
         if (!(pe.isFoulCommited())) {
             JLabel tempPin = new JLabel();
             for (int c = 0; c < 10; c++) {

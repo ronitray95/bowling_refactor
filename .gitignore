@@ -32,6 +32,8 @@ out/
 codemr
 
 bin
+.metadata
+org.eclipse.*
 
 # Score Output
 SCOREHISTORY.DAT
