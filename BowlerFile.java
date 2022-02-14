@@ -14,12 +14,13 @@
  *
  */
 
+import models.Bowler;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Vector;
-import models.Bowler;
 
 /**
  * Class for interfacing with Bowler database
@@ -38,9 +39,7 @@ class BowlerFile {
      * @return a Bowler object
      */
 
-    public static Bowler getBowlerInfo(String nickName)
-            throws IOException {
-
+    public static Bowler getBowlerInfo(String nickName) throws IOException {
         BufferedReader in = new BufferedReader(new FileReader(BOWLER_DAT));
         String data;
         while ((data = in.readLine()) != null) {
@@ -68,15 +67,8 @@ class BowlerFile {
      * @param fullName the FullName of the Bowler
      * @param email    the E-mail Address of the Bowler
      */
-
-    public static void putBowlerInfo(
-            String nickName,
-            String fullName,
-            String email)
-            throws IOException {
-
+    public static void putBowlerInfo(String nickName, String fullName, String email) throws IOException {
         String data = nickName + "\t" + fullName + "\t" + email + "\n";
-
         RandomAccessFile out = new RandomAccessFile(BOWLER_DAT, "rw");
         out.skipBytes((int) out.length());
         out.writeBytes(data);
@@ -89,11 +81,8 @@ class BowlerFile {
      * @return a Vector of Strings
      */
 
-    public static Vector<String> getBowlers()
-            throws IOException {
-
-        Vector<String> allBowlers = new Vector<String>();
-
+    public static Vector<String> getBowlers() throws IOException {
+        Vector<String> allBowlers = new Vector<>();
         BufferedReader in = new BufferedReader(new FileReader(BOWLER_DAT));
         String data;
         while ((data = in.readLine()) != null) {

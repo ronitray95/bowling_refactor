@@ -7,13 +7,14 @@
  * Revision:
  *   $Log$
  */
+
 import models.PinsetterEvent;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Vector;
-import java.util.Observer;
 import java.util.Observable;
+import java.util.Observer;
+import java.util.Vector;
 
 /**
  * constructs a prototype PinSetter GUI
@@ -21,7 +22,6 @@ import java.util.Observable;
 public class PinSetterView implements Observer {
 
     private final Vector<JLabel> pinVect = new Vector<>();
-    private final JPanel firstRoll;
     private final JPanel secondRoll;
 
     /**
@@ -52,7 +52,7 @@ public class PinSetterView implements Observer {
 
         JPanel top = new JPanel();
 
-        firstRoll = new JPanel();
+        JPanel firstRoll = new JPanel();
         firstRoll.setBackground(Color.yellow);
 
         secondRoll = new JPanel();
@@ -180,7 +180,7 @@ public class PinSetterView implements Observer {
      * is grayed out.  When it is the second roll, it is indicated by the
      * appearance of a second yellow box at the top.
      *
-     * @param pe The state of the pinsetter is sent in this event.
+     * @param pinsetterEvent The state of the pinsetter is sent in this event.
      */
     public void update(Observable pinsetterObservable, Object pinsetterEvent) {
         PinsetterEvent pe = (PinsetterEvent)pinsetterEvent;

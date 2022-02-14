@@ -5,6 +5,9 @@
  * Window>Preferences>Java>Code Generation.
  */
 
+import models.Bowler;
+import models.Party;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
@@ -14,21 +17,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Iterator;
 import java.util.Vector;
-import models.Bowler;
-import models.Party;
-import models.LaneEvent;
 
 public class EndGameReport implements ActionListener, ListSelectionListener {
 
     private final JFrame win;
     private final JButton printButton;
     private final JButton finished;
-    private final JList<String> memberList;
     //private Vector myVector;
     private final Vector<String> retVal;
-
     private int result;
-
     private String selectedMember;
 
     public EndGameReport(String partyName, Party party) {
@@ -48,11 +45,11 @@ public class EndGameReport implements ActionListener, ListSelectionListener {
         partyPanel.setBorder(new TitledBorder("Party Members"));
 
         Vector<String> myVector = new Vector<>();
-        Iterator iter = (party.getMembers()).iterator();
+        Iterator<Bowler> iter = (party.getMembers()).iterator();
         while (iter.hasNext()) {
-            myVector.add(((Bowler) iter.next()).getNick());
+            myVector.add(iter.next().getNick());
         }
-        memberList = new JList<>(myVector);
+        JList<String> memberList = new JList<>(myVector);
         memberList.setFixedCellWidth(120);
         memberList.setVisibleRowCount(5);
         memberList.addListSelectionListener(this);

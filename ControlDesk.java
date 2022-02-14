@@ -35,14 +35,15 @@
  *
  */
 
+import models.Bowler;
+import models.ControlDeskEvent;
+import models.Party;
+
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Vector;
 import java.util.Observer;
-import models.Bowler;
-import models.Party;
-import models.ControlDeskEvent;
+import java.util.Vector;
 
 /**
  * Class that represents control desk
@@ -74,7 +75,6 @@ class ControlDesk extends Thread {
      *
      * @param numLanes the numbler of lanes to be represented
      */
-
     public ControlDesk(int numLanes) {
         this.numLanes = numLanes;
         lanes = new HashSet<>(numLanes);
@@ -105,7 +105,6 @@ class ControlDesk extends Thread {
             }
         }
     }
-
 
     /**
      * Retrieves a matching Bowler from the bowler database.
@@ -160,7 +159,6 @@ class ControlDesk extends Thread {
      *
      * @param partyNicks A Vector of NickNames
      */
-
     public void addPartyQueue(Vector<String> partyNicks) {
         Vector<Bowler> partyBowlers = new Vector<>();
         for (int i = 0; i < partyNicks.size(); i++) {
@@ -177,14 +175,12 @@ class ControlDesk extends Thread {
      *
      * @return a Vecotr of Strings
      */
-
     public Vector<String> getPartyQueue() {
         Vector<String> displayPartyQueue = new Vector<>();
         for (int i = 0; i < partyQueue.asVector().size(); i++) {
-            String nextParty =
-                    ((Bowler) ((Party) partyQueue.asVector().get(i)).getMembers()
-                            .get(0))
-                            .getNickName() + "'s Party";
+            String nextParty = ((Party) partyQueue.asVector().get(i)).getMembers()
+                    .get(0)
+                    .getNickName() + "'s Party";
             displayPartyQueue.addElement(nextParty);
         }
         return displayPartyQueue;
@@ -200,34 +196,33 @@ class ControlDesk extends Thread {
         return numLanes;
     }
 
-   /**
+    /**
      * addObserver
      * <p>
      * Method that will add a subscriber
      *
      * @param adding Observer that is to be added
      */
-
     public void addObserver(Observer adding) {
         eventPublisher.addObserver(adding);
     }
 
-	/* deleteObserver
-	 * 
-	 * Method that unsubscribes an observer from this object
-	 * 
-	 * @param removing	The observer to be removed*/
-
-	public void deleteObserver( Observer removing ) {
-		eventPublisher.deleteObserver(removing);
-	}
+    /**
+     * deleteObserver
+     * <p>
+     * Method that unsubscribes an observer from this object
+     *
+     * @param removing The observer to be removed
+     */
+    public void deleteObserver(Observer removing) {
+        eventPublisher.deleteObserver(removing);
+    }
 
     /**
      * Broadcast an event to subscribing objects.
      *
      * @param event the ControlDeskEvent to broadcast
      */
-
     public void publish(ControlDeskEvent event) {
         eventPublisher.publish(event);
     }
@@ -237,7 +232,6 @@ class ControlDesk extends Thread {
      *
      * @return a HashSet of Lanes
      */
-
     public HashSet<Lane> getLanes() {
         return lanes;
     }

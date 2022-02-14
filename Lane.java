@@ -130,11 +130,7 @@
  *
  */
 
-import models.Bowler;
-import models.LaneEvent;
-import models.ScoreData;
-import models.Party;
-import models.PinsetterEvent;
+import models.*;
 
 import java.util.*;
 
@@ -293,7 +289,7 @@ public class Lane extends Thread implements Observer {
      * <p>
      * recieves the thrown event from the pinsetter
      *
-     * @param pe The pinsetter event that has been received.
+     * @param pinsetterEvent The pinsetter event that has been received.
      * @pre none
      * @post the event has been acted upon if desiered
      */

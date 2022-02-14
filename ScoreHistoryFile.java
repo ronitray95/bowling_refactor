@@ -45,5 +45,4 @@ public class ScoreHistoryFile {
 		}
 		return scores;
 	}
-
 }
