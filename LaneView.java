@@ -164,7 +164,7 @@ public class LaneView implements ActionListener, Observer {
                 frame.pack();
             }
 
-            int[][] lescores = ((LaneEvent) le).getCumulScore();
+            int[][] lescores = ((LaneEvent) le).getScoreData().getCumulScore();
             for (int k = 0; k < numBowlers; k++) {
                 for (int i = 0; i <= ((LaneEvent) le).getFrameNum() - 1; i++) {
                     if (lescores[k][i] != 0)
@@ -172,19 +172,19 @@ public class LaneView implements ActionListener, Observer {
                                 (new Integer(lescores[k][i])).toString());
                 }
                 for (int i = 0; i < 21; i++) {
-                    if (((int[]) ((LaneEvent) le).getScore().get(bowlers.get(k)))[i] != -1)
-                        if (((int[]) ((LaneEvent) le).getScore()
+                    if (((int[]) ((LaneEvent) le).getScoreData().getScore().get(bowlers.get(k)))[i] != -1)
+                        if (((int[]) ((LaneEvent) le).getScoreData().getScore()
                                 .get(bowlers.get(k)))[i] == 10 && (i % 2 == 0 || i == 19))
                             ballLabel[k][i].setText("X");
-                        else if (i > 0 && ((int[]) ((LaneEvent) le).getScore().get(bowlers.get(k)))[i]
-                                + ((int[]) ((LaneEvent) le).getScore()
+                        else if (i > 0 && ((int[]) ((LaneEvent) le).getScoreData().getScore().get(bowlers.get(k)))[i]
+                                + ((int[]) ((LaneEvent) le).getScoreData().getScore()
                                 .get(bowlers.get(k)))[i - 1] == 10 && i % 2 == 1)
                             ballLabel[k][i].setText("/");
-                        else if (((int[]) ((LaneEvent) le).getScore().get(bowlers.get(k)))[i] == -2)
+                        else if (((int[]) ((LaneEvent) le).getScoreData().getScore().get(bowlers.get(k)))[i] == -2)
                             ballLabel[k][i].setText("F");
                         else
                             ballLabel[k][i].setText(
-                                    (new Integer(((int[]) ((LaneEvent) le).getScore()
+                                    (new Integer(((int[]) ((LaneEvent) le).getScoreData().getScore()
                                             .get(bowlers.get(k)))[i])).toString());
                 }
             }

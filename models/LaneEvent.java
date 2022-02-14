@@ -32,25 +32,21 @@ public class LaneEvent {
 	int frame;
 	int ball;
 	Bowler bowler;
-	int[][] cumulScore;
-	HashMap<Bowler, int[]> score;
+	ScoreData scoreData;
 	int index;
 	int frameNum;
-	int[] curScores;
 	boolean mechProb;
 	private Party p;
 
-	public LaneEvent(Party pty, int theIndex, Bowler theBowler, int[][] theCumulScore, HashMap<Bowler, int[]> theScore, int theFrameNum, int[] theCurScores, int theBall, boolean mechProblem, boolean isPartyAssigned) {
+	public LaneEvent(Party pty, int theIndex, Bowler theBowler, ScoreData scoreDataVal, int theFrameNum, int theBall, boolean mechProblem, boolean isPartyAssignedVal) {
 		p = pty;
 		index = theIndex;
 		bowler = theBowler;
-		cumulScore = theCumulScore;
-		score = theScore;
-		curScores = theCurScores;
+		scoreData = scoreDataVal;
 		frameNum = theFrameNum;
 		ball = theBall;
 		mechProb = mechProblem;
-		this.isPartyAssigned = isPartyAssigned;
+		isPartyAssigned = isPartyAssignedVal;
 	}
 
 	public boolean isMechanicalProblem() {
@@ -59,15 +55,6 @@ public class LaneEvent {
 
 	public int getFrameNum() {
 		return frameNum;
-	}
-
-	public HashMap<Bowler, int[]> getScore() {
-		return score;
-	}
-
-
-	public int[] getCurScores() {
-		return curScores;
 	}
 
 	public int getIndex() {
@@ -82,8 +69,8 @@ public class LaneEvent {
 		return ball;
 	}
 
-	public int[][] getCumulScore() {
-		return cumulScore;
+	public ScoreData getScoreData() {
+		return scoreData;
 	}
 
 	public Party getParty() {
