@@ -21,6 +21,8 @@
  */
 
 
+import models.Bowler;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
@@ -29,9 +31,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
-import models.Bowler;
-import models.Party;
-import models.ControlDeskEvent;
 
 /**
  * Class for GUI components need to add a party
@@ -39,7 +38,6 @@ import models.ControlDeskEvent;
 public class AddPartyView implements ActionListener, ListSelectionListener {
 
     private final int maxSize;
-
     private final JFrame win;
     private final JButton addPatron;
     private final JButton newPatron;
@@ -109,27 +107,31 @@ public class AddPartyView implements ActionListener, ListSelectionListener {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(4, 1));
 
-        //Insets buttonMargin = new Insets(4, 4, 4, 4);
+        Insets buttonMargin = new Insets(4, 4, 4, 4);
 
         addPatron = new JButton("Add to Party");
+        addPatron.setMargin(buttonMargin);
         JPanel addPatronPanel = new JPanel();
         addPatronPanel.setLayout(new FlowLayout());
         addPatron.addActionListener(this);
         addPatronPanel.add(addPatron);
 
         remPatron = new JButton("Remove Member");
+        remPatron.setMargin(buttonMargin);
         JPanel remPatronPanel = new JPanel();
         remPatronPanel.setLayout(new FlowLayout());
         remPatron.addActionListener(this);
         remPatronPanel.add(remPatron);
 
         newPatron = new JButton("New Patron");
+        newPatron.setMargin(buttonMargin);
         JPanel newPatronPanel = new JPanel();
         newPatronPanel.setLayout(new FlowLayout());
         newPatron.addActionListener(this);
         newPatronPanel.add(newPatron);
 
         finished = new JButton("Finished");
+        finished.setMargin(buttonMargin);
         JPanel finishedPanel = new JPanel();
         finishedPanel.setLayout(new FlowLayout());
         finished.addActionListener(this);
@@ -146,7 +148,6 @@ public class AddPartyView implements ActionListener, ListSelectionListener {
         colPanel.add(buttonPanel);
 
         win.getContentPane().add("Center", colPanel);
-
         win.pack();
 
         // Center Window on Screen
@@ -158,6 +159,7 @@ public class AddPartyView implements ActionListener, ListSelectionListener {
 
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(addPatron)) {
             if (selectedNick != null && party.size() < maxSize) {
@@ -194,6 +196,7 @@ public class AddPartyView implements ActionListener, ListSelectionListener {
      * @param e the ListActionEvent that triggered the handler
      */
 
+    @Override
     public void valueChanged(ListSelectionEvent e) {
         if (e.getSource().equals(allBowlers)) {
             selectedNick =

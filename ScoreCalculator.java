@@ -1,15 +1,12 @@
 import models.Bowler;
-import models.LaneEvent;
-import models.Party;
-import models.PinsetterEvent;
 
-import java.util.*;
+import java.util.HashMap;
 
 public class ScoreCalculator {
 
-    public int calculateScore(Bowler Cur, int frame, HashMap<Bowler, int[]> scores,int[][] cumulScores, int bowlIndex,int ball) {
+    public int calculateScore(Bowler Cur, int frame, HashMap<Bowler, int[]> scores, int[][] cumulScores, int bowlIndex, int ball) {
         int[] curScore;
-        int strikeballs = 0;
+        int strikeballs;
         int totalScore = 0;
         curScore = scores.get(Cur);
         for (int i = 0; i != 10; i++) {
@@ -81,7 +78,7 @@ public class ScoreCalculator {
                         if (curScore[i] != -2) {
                             cumulScores[bowlIndex][i / 2] += curScore[i];
                         }
-                    } else if (i / 2 != 9) {
+                    } else { //i / 2 != 9
                         //add his last frame's cumul to this ball, make it this frame's cumul.
                         if (curScore[i] != -2) {
                             cumulScores[bowlIndex][i / 2] += cumulScores[bowlIndex][i / 2 - 1] + curScore[i];

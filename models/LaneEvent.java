@@ -24,61 +24,59 @@
  */
 package models;
 
-import java.util.HashMap;
-
 public class LaneEvent {
 
-	public boolean isPartyAssigned;
-	int frame;
-	int ball;
-	Bowler bowler;
-	ScoreData scoreData;
-	int index;
-	int frameNum;
-	boolean mechProb;
-	private Party p;
+    private final Party p;
+    public boolean isPartyAssigned;
+    int frame;
+    int ball;
+    Bowler bowler;
+    ScoreData scoreData;
+    int index;
+    int frameNum;
+    boolean mechProb;
 
-	public LaneEvent(Party pty, int theIndex, Bowler theBowler, ScoreData scoreDataVal, int theFrameNum, int theBall, boolean mechProblem, boolean isPartyAssignedVal) {
-		p = pty;
-		index = theIndex;
-		bowler = theBowler;
-		scoreData = scoreDataVal;
-		frameNum = theFrameNum;
-		ball = theBall;
-		mechProb = mechProblem;
-		isPartyAssigned = isPartyAssignedVal;
-	}
+    public LaneEvent(Party pty, int theIndex, Bowler theBowler, ScoreData scoreDataVal, int theFrameNum, int theBall, boolean mechProblem, boolean isPartyAssignedVal) {
+        p = pty;
+        index = theIndex;
+        bowler = theBowler;
+        scoreData = scoreDataVal;
+        frameNum = theFrameNum;
+        ball = theBall;
+        mechProb = mechProblem;
+        isPartyAssigned = isPartyAssignedVal;
+    }
 
-	public boolean isMechanicalProblem() {
-		return mechProb;
-	}
+    public boolean isMechanicalProblem() {
+        return mechProb;
+    }
 
-	public int getFrameNum() {
-		return frameNum;
-	}
+    public int getFrameNum() {
+        return frameNum;
+    }
 
-	public int getIndex() {
-		return index;
-	}
+    public int getIndex() {
+        return index;
+    }
 
-	public int getFrame() {
-		return frame;
-	}
+    public int getFrame() {
+        return frame;
+    }
 
-	public int getBall() {
-		return ball;
-	}
+    public int getBall() {
+        return ball;
+    }
 
-	public ScoreData getScoreData() {
-		return scoreData;
-	}
+    public ScoreData getScoreData() {
+        return scoreData;
+    }
 
-	public Party getParty() {
-		return p;
-	}
+    public Party getParty() {
+        return p;
+    }
 
-	public Bowler getBowler() {
-		return bowler;
-	}
+    public Bowler getBowler() {
+        return bowler;
+    }
 
 }

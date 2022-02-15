@@ -33,7 +33,7 @@ public class LaneView implements ActionListener, Observer {
     JButton maintenance;
     Lane lane;
     //    private int roll;
-    private boolean initDone = true;
+    private boolean initDone;// = true;
 
     public LaneView(Lane lane, int laneNum) {
 
@@ -125,6 +125,7 @@ public class LaneView implements ActionListener, Observer {
         return panel;
     }
 
+    @Override
     public void update(Observable lane, Object le) {
         if (((LaneEvent) le).isPartyAssigned) {
             int numBowlers = ((LaneEvent) le).getParty().getMembers().size();
@@ -192,6 +193,7 @@ public class LaneView implements ActionListener, Observer {
         }
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(maintenance)) {
             lane.pauseGame();

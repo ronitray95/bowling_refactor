@@ -8,6 +8,8 @@
  *
  */
 
+import models.ControlDeskEvent;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
@@ -15,12 +17,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Vector;
-import java.util.Observable;
-import java.util.Observer;
-import models.ControlDeskEvent;
+import java.util.*;
 
 
 /**
@@ -149,7 +146,8 @@ public class ControlDeskView implements ActionListener, Observer {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(addParty)) {
-            AddPartyView addPartyWin = new AddPartyView(this, maxMembers);
+            new AddPartyView(this, maxMembers);
+            //AddPartyView addPartyWin = new AddPartyView(this, maxMembers);
         }
         if (e.getSource().equals(assign)) {
             controlDesk.assignLane();
@@ -170,16 +168,16 @@ public class ControlDeskView implements ActionListener, Observer {
         controlDesk.addPartyQueue(addPartyView.getParty());
     }
 
-    /**
+    /*
      * Receive a broadcast from a ControlDesk
      *
      * @param ce the ControlDeskEvent that triggered the handler
-     */
+     * /
+    public void receiveControlDeskEvent(ControlDeskEvent ce) {
+        partyList.setListData(ce.getPartyQueue());
+    }*/
 
-    // public void receiveControlDeskEvent(ControlDeskEvent ce) {
-    //     partyList.setListData(ce.getPartyQueue());
-    // }
     public void update(Observable lane, Object event) {
-        partyList.setListData(((ControlDeskEvent)event).getPartyQueue());
+        partyList.setListData(((ControlDeskEvent) event).getPartyQueue());
     }
 }

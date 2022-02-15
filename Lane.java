@@ -185,7 +185,6 @@ public class Lane extends Thread implements Observer {
      * entry point for execution of this lane
      */
     public void run() {
-
         while (true) {
             if (partyAssigned && !gameFinished) {    // we have a party on this lane,
                 // so next bower can take a throw
@@ -197,7 +196,6 @@ public class Lane extends Thread implements Observer {
                         System.err.println("Error occurred " + e);
                     }
                 }
-
 
                 if (bowlerIterator.hasNext()) {
                     currentThrower = bowlerIterator.next();
@@ -220,7 +218,6 @@ public class Lane extends Thread implements Observer {
                         }
                     }
 
-
                     setter.reset();
                     bowlIndex++;
 
@@ -233,7 +230,7 @@ public class Lane extends Thread implements Observer {
                         gameNumber++;
                     }
                 }
-            } else if (partyAssigned && gameFinished) {
+            } else if (partyAssigned) {
                 EndGamePrompt egp = new EndGamePrompt(party.getMembers().get(0).getNickName() + "'s Party");
                 int result = egp.getResult();
                 egp.distroy();
@@ -274,7 +271,6 @@ public class Lane extends Thread implements Observer {
                     }
                 }
             }
-
 
             try {
                 sleep(10);
@@ -328,8 +324,9 @@ public class Lane extends Thread implements Observer {
                 } else if (pe.getThrowNumber() == 3)
                     System.out.println("I'm here...");
             }
-        } else {                                //  this is not a real throw, probably a reset
         }
+        /*else {//  this is not a real throw, probably a reset
+        }*/
     }
 
     /**
@@ -354,7 +351,6 @@ public class Lane extends Thread implements Observer {
      */
     private void resetScores() {
         Iterator<Bowler> bowlIt = (party.getMembers()).iterator();
-
         while (bowlIt.hasNext()) {
             int[] toPut = new int[25];
             for (int i = 0; i != 25; i++) {
@@ -362,8 +358,6 @@ public class Lane extends Thread implements Observer {
             }
             scores.put(bowlIt.next(), toPut);
         }
-
-
         gameFinished = false;
         frameNumber = 0;
     }
@@ -436,8 +430,7 @@ public class Lane extends Thread implements Observer {
      */
     private int getScore(Bowler Cur, int frame) {
         ScoreCalculator cal = new ScoreCalculator();
-        int totalScore = cal.calculateScore(Cur, frame, scores, cumulScores, bowlIndex, ball);
-        return totalScore;
+        return cal.calculateScore(Cur, frame, scores, cumulScores, bowlIndex, ball);
     }
 
     /**
@@ -475,11 +468,11 @@ public class Lane extends Thread implements Observer {
 	 * 
 	 * Method that unsubscribes an observer from this object
 	 * 
-	 * @param removing	The observer to be removed*/
-
+	 * @param removing	The observer to be removed
+	 * /
 	public void deleteObserver( Observer removing ) {
 		eventPublisher.deleteObserver(removing);
-	}
+	}*/
 
     /**
      * publish

@@ -64,11 +64,11 @@
  *
  *
  */
+
 import models.PinsetterEvent;
 
-import java.util.Random;
-import java.util.Vector;
 import java.util.Observer;
+import java.util.Random;
 
 /**
  * Class to represent the pinsetter
@@ -77,6 +77,7 @@ public class Pinsetter {
 
     private final Random rnd;
     private final boolean[] pins;
+    private final EventPublisher eventPublisher;
     /* 0-9 of state of pine, true for standing,
     false for knocked down
 
@@ -88,7 +89,6 @@ public class Pinsetter {
     */
     private boolean foul;
     private int throwNumber;
-    private final EventPublisher eventPublisher;
 
     /**
      * Pinsetter()
@@ -190,15 +190,16 @@ public class Pinsetter {
         eventPublisher.addObserver(adding);
     }
 
-	/* deleteObserver
-	 * 
-	 * Method that unsubscribes an observer from this object
-	 * 
-	 * @param removing	The observer to be removed*/
-
-	public void deleteObserver( Observer removing ) {
-		eventPublisher.deleteObserver(removing);
-	}
+    /**
+     * deleteObserver
+     * <p>
+     * Method that unsubscribes an observer from this object
+     *
+     * @param removing The observer to be removed
+     */
+    public void deleteObserver(Observer removing) {
+        eventPublisher.deleteObserver(removing);
+    }
 
     /**
      * resetPins()
