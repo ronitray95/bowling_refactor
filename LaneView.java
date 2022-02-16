@@ -38,7 +38,6 @@ public class LaneView implements ActionListener, Observer {
     public LaneView(Lane lane, int laneNum) {
 
         this.lane = lane;
-
         initDone = true;
         frame = new JFrame("Lane " + laneNum + ":");
         cpanel = frame.getContentPane();
@@ -149,13 +148,10 @@ public class LaneView implements ActionListener, Observer {
                 JPanel buttonPanel = new JPanel();
                 buttonPanel.setLayout(new FlowLayout());
 
-                Insets buttonMargin = new Insets(4, 4, 4, 4);
 
-                maintenance = new JButton("Maintenance Call");
-                maintenance.setMargin(buttonMargin);
+                maintenance = Utilities.createButton("Maintenance Call", this);
                 JPanel maintenancePanel = new JPanel();
                 maintenancePanel.setLayout(new FlowLayout());
-                maintenance.addActionListener(this);
                 maintenancePanel.add(maintenance);
 
                 buttonPanel.add(maintenancePanel);
@@ -195,8 +191,7 @@ public class LaneView implements ActionListener, Observer {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource().equals(maintenance)) {
+        if (e.getSource().equals(maintenance))
             lane.pauseGame();
-        }
     }
 }

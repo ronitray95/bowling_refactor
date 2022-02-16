@@ -233,7 +233,7 @@ public class Lane extends Thread implements Observer {
             } else if (partyAssigned) {
                 EndGamePrompt egp = new EndGamePrompt(party.getMembers().get(0).getNickName() + "'s Party");
                 int result = egp.getResult();
-                egp.distroy();
+                egp.destroy();
                 egp = null;
 
 
@@ -260,9 +260,8 @@ public class Lane extends Thread implements Observer {
                         Bowler thisBowler = scoreIt.next();
                         ScoreReport sr = new ScoreReport(thisBowler, finalScores[myIndex++], gameNumber);
                         sr.sendEmail(thisBowler.getEmail());
-                        Iterator<String> printIt = printVector.iterator();
-                        while (printIt.hasNext()) {
-                            if (Objects.equals(thisBowler.getNick(), printIt.next())) {// TODO replaced ==
+                        for (String s : printVector) {
+                            if (Objects.equals(thisBowler.getNick(), s)) {
                                 System.out.println("Printing " + thisBowler.getNick());
                                 sr.sendPrintout();
                             }
@@ -350,13 +349,12 @@ public class Lane extends Thread implements Observer {
      * @post scoring system is initialized
      */
     private void resetScores() {
-        Iterator<Bowler> bowlIt = (party.getMembers()).iterator();
-        while (bowlIt.hasNext()) {
+        for (Bowler bowler : party.getMembers()) {
             int[] toPut = new int[25];
             for (int i = 0; i != 25; i++) {
                 toPut[i] = -1;
             }
-            scores.put(bowlIt.next(), toPut);
+            scores.put(bowler, toPut);
         }
         gameFinished = false;
         frameNumber = 0;
@@ -399,8 +397,6 @@ public class Lane extends Thread implements Observer {
         int index = ((frame - 1) * 2 + ball);
 
         curScore = scores.get(Cur);
-
-
         curScore[index - 1] = score;
         scores.put(Cur, curScore);
         getScore(Cur, frame);

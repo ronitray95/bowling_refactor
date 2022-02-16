@@ -210,9 +210,7 @@ public class Pinsetter {
      * @post pins array is reset to all pins up
      */
     public void resetPins() {
-        for (int i = 0; i <= 9; i++) {
+        for (int i = 0; i <= 9; i++)
             pins[i] = true;
-        }
     }
-
 }

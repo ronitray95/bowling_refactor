@@ -23,11 +23,10 @@ public class ControlDeskEvent {
     private final Vector<String> partyQueue;
 
     /**
-     * Contstructor for the ControlDeskEvent
+     * Constructor for the ControlDeskEvent
      *
      * @param partyQueue a Vector of Strings containing the names of the parties in the wait queue
      */
-
     public ControlDeskEvent(Vector<String> partyQueue) {
         this.partyQueue = partyQueue;
     }
@@ -37,7 +36,6 @@ public class ControlDeskEvent {
      *
      * @return a Vector of Strings representing the names of the parties in the wait queue
      */
-
     public Vector<String> getPartyQueue() {
         return partyQueue;
     }

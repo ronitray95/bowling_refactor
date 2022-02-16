@@ -1,26 +1,27 @@
 package models;
-import java.util.*;
 
+import java.util.HashMap;
 
 public class ScoreData {
-    int[][] cumlScore;
-    HashMap<Bowler, int[]> score;
-    int[] curScores;
+    private final int[][] cumlScore;
+    private final HashMap<Bowler, int[]> score;
+    private final int[] curScores;
+
     public ScoreData(int[][] theCumulScore, HashMap<Bowler, int[]> theScore, int[] theCurScores) {
         cumlScore = theCumulScore;
         score = theScore;
         curScores = theCurScores;
     }
 
-    public int[][] getCumulScore(){
+    public int[][] getCumulScore() {
         return cumlScore;
     }
 
-    public HashMap<Bowler, int[]> getScore(){
+    public HashMap<Bowler, int[]> getScore() {
         return score;
     }
 
-    public int[] getCurrentScores(){
+    public int[] getCurrentScores() {
         return curScores;
     }
 }

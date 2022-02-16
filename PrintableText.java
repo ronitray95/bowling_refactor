@@ -18,10 +18,10 @@ public class PrintableText implements Printable {
         text = t;
     }
 
+    @Override
     public int print(Graphics g, PageFormat pageFormat, int pageIndex) {
-        if (pageIndex > 0) {
+        if (pageIndex > 0)
             return NO_SUCH_PAGE;
-        }
 
         Graphics2D g2d = (Graphics2D) g; // Allow use of Java 2 graphics on
 
@@ -41,7 +41,6 @@ public class PrintableText implements Printable {
                 layout.draw(g2d, (float) pen.x, (float) (pen.y + i * 14));
             }
         }
-
         return PAGE_EXISTS;
     }
 }

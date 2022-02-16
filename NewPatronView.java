@@ -82,20 +82,14 @@ public class NewPatronView implements ActionListener {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(4, 1));
 
-        Insets buttonMargin = new Insets(4, 4, 4, 4);
-
-        finished = new JButton("Add Patron");
-        finished.setMargin(buttonMargin);
+        finished = Utilities.createButton("Add Patron", this);
         JPanel finishedPanel = new JPanel();
         finishedPanel.setLayout(new FlowLayout());
-        finished.addActionListener(this);
         finishedPanel.add(finished);
 
-        abort = new JButton("Abort");
-        abort.setMargin(buttonMargin);
+        abort = Utilities.createButton("Abort", this);
         JPanel abortPanel = new JPanel();
         abortPanel.setLayout(new FlowLayout());
-        abort.addActionListener(this);
         abortPanel.add(abort);
 
         buttonPanel.add(abortPanel);
@@ -118,13 +112,11 @@ public class NewPatronView implements ActionListener {
 
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource().equals(abort)) {
-            //done = true;
+        if (e.getSource().equals(abort))
             win.setVisible(false);
-        }
-
-        if (e.getSource().equals(finished)) {
+        else if (e.getSource().equals(finished)) {
             nick = nickField.getText();
             full = fullField.getText();
             email = emailField.getText();
@@ -132,12 +124,7 @@ public class NewPatronView implements ActionListener {
             addParty.updateNewPatron(this);
             win.setVisible(false);
         }
-
     }
-
-	/*public boolean done() {
-		return done;
-	}*/
 
     public String getNick() {
         return nick;

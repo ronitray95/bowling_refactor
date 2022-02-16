@@ -17,7 +17,7 @@ package models;
 public class PinsetterEvent {
 
     private final boolean[] pinsStillStanding;
-    private final boolean foulCommited;
+    private final boolean foulCommitted;
     private final int throwNumber;
     private final int pinsDownThisThrow;
 
@@ -31,10 +31,8 @@ public class PinsetterEvent {
      */
     public PinsetterEvent(boolean[] ps, boolean foul, int tn, int pinsDownThisThrow) {
         pinsStillStanding = new boolean[10];
-
         System.arraycopy(ps, 0, pinsStillStanding, 0, 10);
-
-        foulCommited = foul;
+        foulCommitted = foul;
         throwNumber = tn;
         this.pinsDownThisThrow = pinsDownThisThrow;
     }
@@ -68,11 +66,9 @@ public class PinsetterEvent {
         int count = 0;
 
         for (int i = 0; i <= 9; i++) {
-            if (pinKnockedDown(i)) {
+            if (pinKnockedDown(i))
                 count++;
-            }
         }
-
         return count;
     }
 
@@ -82,7 +78,7 @@ public class PinsetterEvent {
      * @return true if a foul was commited on the lane, false otherwise
      */
     public boolean isFoulCommited() {
-        return foulCommited;
+        return foulCommitted;
     }
 
     /**
@@ -94,4 +90,3 @@ public class PinsetterEvent {
         return throwNumber;
     }
 }
-

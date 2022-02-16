@@ -44,20 +44,14 @@ public class EndGamePrompt implements ActionListener {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(1, 2));
 
-        Insets buttonMargin = new Insets(4, 4, 4, 4);
-
-        yesButton = new JButton("Yes");
-        yesButton.setMargin(buttonMargin); //add unused variable buttonMargin
+        yesButton = Utilities.createButton("Yes", this);
         JPanel yesButtonPanel = new JPanel();
         yesButtonPanel.setLayout(new FlowLayout());
-        yesButton.addActionListener(this);
         yesButtonPanel.add(yesButton);
 
-        noButton = new JButton("No");
-        noButton.setMargin(buttonMargin); //add unused variable buttonMargin
+        noButton = Utilities.createButton("No", this);
         JPanel noButtonPanel = new JPanel();
         noButtonPanel.setLayout(new FlowLayout());
-        noButton.addActionListener(this);
         noButtonPanel.add(noButton);
 
         buttonPanel.add(yesButton);
@@ -80,14 +74,12 @@ public class EndGamePrompt implements ActionListener {
 
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource().equals(yesButton)) {
+        if (e.getSource().equals(yesButton))
             result = 1;
-        }
-        if (e.getSource().equals(noButton)) {
+        else if (e.getSource().equals(noButton))
             result = 2;
-        }
-
     }
 
     public int getResult() {
@@ -101,9 +93,7 @@ public class EndGamePrompt implements ActionListener {
         return result;
     }
 
-    public void distroy() {
+    public void destroy() {
         win.setVisible(false);
     }
-
 }
-

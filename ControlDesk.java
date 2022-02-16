@@ -79,15 +79,11 @@ class ControlDesk extends Thread {
         this.numLanes = numLanes;
         lanes = new HashSet<>(numLanes);
         partyQueue = new Queue();
-
         eventPublisher = new EventPublisher();
 
-        for (int i = 0; i < numLanes; i++) {
+        for (int i = 0; i < numLanes; i++)
             lanes.add(new Lane());
-        }
-
         this.start();
-
     }
 
     /**
@@ -96,9 +92,7 @@ class ControlDesk extends Thread {
     @Override
     public void run() {
         while (true) {
-
             assignLane();
-
             try {
                 sleep(250);
             } catch (Exception e) {
@@ -113,32 +107,24 @@ class ControlDesk extends Thread {
      * @param nickName The NickName of the Bowler
      * @return a Bowler object.
      */
-
     private Bowler registerPatron(String nickName) {
         Bowler patron = null;
-
         try {
             // only one patron / nick.... no dupes, no checks
-
             patron = BowlerFile.getBowlerInfo(nickName);
-
         } catch (IOException e) {
             System.err.println("Error..." + e);
         }
-
         return patron;
     }
 
     /**
      * Iterate through the available lanes and assign the paties in the wait queue if lanes are available.
      */
-
     public void assignLane() {
         Iterator<Lane> it = lanes.iterator();
-
         while (it.hasNext() && partyQueue.hasMoreElements()) {
             Lane curLane = it.next();
-
             if (!curLane.isPartyAssigned()) {
                 System.out.println("ok... assigning this party");
                 curLane.assignParty(((Party) partyQueue.next()));
@@ -147,13 +133,9 @@ class ControlDesk extends Thread {
         publish(new ControlDeskEvent(getPartyQueue()));
     }
 
-    /**
-     *
-     */
-
-    public void viewScores(Lane ln) {
+    /*public void viewScores(Lane ln) {
         // TODO: attach a LaneScoreView object to that lane
-    }
+    }*/
 
     /**
      * Creates a party from a Vector of nickNAmes and adds them to the wait queue.
@@ -162,8 +144,8 @@ class ControlDesk extends Thread {
      */
     public void addPartyQueue(Vector<String> partyNicks) {
         Vector<Bowler> partyBowlers = new Vector<>();
-        for (int i = 0; i < partyNicks.size(); i++) {
-            Bowler newBowler = registerPatron(partyNicks.get(i));
+        for (String partyNick : partyNicks) {
+            Bowler newBowler = registerPatron(partyNick);
             partyBowlers.add(newBowler);
         }
         Party newParty = new Party(partyBowlers);

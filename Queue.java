@@ -11,7 +11,7 @@
 import java.util.Vector;
 
 public class Queue {
-    private Vector<Object> v;
+    private final Vector<Object> v;
 
     /**
      * Queue()
@@ -37,5 +37,4 @@ public class Queue {
     public Vector<Object> asVector() {
         return v;
     }
-
 }

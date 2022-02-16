@@ -29,7 +29,7 @@ public class Party {
     /**
      * Vector of bowlers in this party
      */
-    private Vector<Bowler> myBowlers;
+    private final Vector<Bowler> myBowlers;
 
     /**
      * Constructor for a Party
@@ -50,5 +50,4 @@ public class Party {
     public Vector<Bowler> getMembers() {
         return myBowlers;
     }
-
 }

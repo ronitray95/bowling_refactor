@@ -9,9 +9,9 @@ public class ScoreCalculator {
         int strikeballs;
         int totalScore = 0;
         curScore = scores.get(Cur);
-        for (int i = 0; i != 10; i++) {
+        for (int i = 0; i != 10; i++)
             cumulScores[bowlIndex][i] = 0;
-        }
+
         int current = 2 * (frame - 1) + ball - 1;
         //Iterate through each ball until the current one.
         for (int i = 0; i != current + 2; i++) {

@@ -12,7 +12,7 @@ import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
-import java.util.Iterator;
+import java.util.Objects;
 import java.util.Vector;
 
 public class ScoreReport {
@@ -28,8 +28,6 @@ public class ScoreReport {
         } catch (Exception e) {
             System.err.println("Error: " + e);
         }
-
-        Iterator<Score> scoreIt = v.iterator();
 
         content = "";
         content += "--Lucky Strike Bowling Alley Score Report--\n";
@@ -48,8 +46,7 @@ public class ScoreReport {
         content += "\n";
         content += "\n";
         content += "Previous scores by date: \n";
-        while (scoreIt.hasNext()) {
-            Score score = scoreIt.next();
+        for (Score score : Objects.requireNonNull(v)) {
             temp.append("  ").append(score.getDate()).append(" - ").append(score.getScore()).append("\n");
             //content += "  " + score.getDate() + " - " + score.getScore();
             //content += "\n";
