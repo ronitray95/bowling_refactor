@@ -20,7 +20,7 @@ public class ScoreReport {
     private String content;
 
     public ScoreReport(Bowler bowler, int[] scores, int games) {
-        String nick = bowler.getNick();
+        String nick = bowler.getNickName();
         String full = bowler.getFullName();
         Vector<Score> v = null;
         try {
@@ -69,10 +69,10 @@ public class ScoreReport {
             //String boundary = "DataSeparatorString";
 
             // here you are supposed to send your username
-            sendln(in, out, "HELLO world");
-            sendln(in, out, "MAIL FROM: <mda2376@rit.edu>");
-            sendln(in, out, "RCPT TO: <" + recipient + ">");
-            sendln(in, out, "DATA");
+            sendln(out, "HELLO world");
+            sendln(out, "MAIL FROM: <mda2376@rit.edu>");
+            sendln(out, "RCPT TO: <" + recipient + ">");
+            sendln(out, "DATA");
             sendln(out, "Subject: Bowling Score Report ");
             sendln(out, "From: <Lucky Strikes Bowling Club>");
 
@@ -80,8 +80,8 @@ public class ScoreReport {
             sendln(out, content + "\n\n");
             sendln(out, "\r\n");
 
-            sendln(in, out, ".");
-            sendln(in, out, "QUIT");
+            sendln(out, ".");
+            sendln(out, "QUIT");
             s.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -102,17 +102,17 @@ public class ScoreReport {
         }
     }
 
-    private void sendln(BufferedReader in, BufferedWriter out, String s) {
-        try {
-            out.write(s + "\r\n");
-            out.flush();
-            // System.out.println(s);
-            s = in.readLine();
-            // System.out.println(s);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+    // private void sendln(BufferedReader in, BufferedWriter out, String s) {
+    //     try {
+    //         out.write(s + "\r\n");
+    //         out.flush();
+    //         // System.out.println(s);
+    //         s = in.readLine();
+    //         // System.out.println(s);
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //     }
+    // }
 
     private void sendln(BufferedWriter out, String s) {
         try {

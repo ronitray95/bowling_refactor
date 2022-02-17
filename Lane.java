@@ -212,7 +212,7 @@ public class Lane extends Thread implements Observer {
                         finalScores[bowlIndex][gameNumber] = cumulScores[bowlIndex][9];
                         try {
                             String dateString = Utilities.getCurrentDateString();
-                            ScoreHistoryFile.addScore(currentThrower.getNick(), dateString, Integer.toString(cumulScores[bowlIndex][9]));
+                            ScoreHistoryFile.addScore(currentThrower.getNickName(), dateString, Integer.toString(cumulScores[bowlIndex][9]));
                         } catch (Exception e) {
                             System.err.println("Exception in addScore. " + e);
                         }
@@ -261,8 +261,8 @@ public class Lane extends Thread implements Observer {
                         ScoreReport sr = new ScoreReport(thisBowler, finalScores[myIndex++], gameNumber);
                         sr.sendEmail(thisBowler.getEmail());
                         for (String s : printVector) {
-                            if (Objects.equals(thisBowler.getNick(), s)) {
-                                System.out.println("Printing " + thisBowler.getNick());
+                            if (Objects.equals(thisBowler.getNickName(), s)) {
+                                System.out.println("Printing " + thisBowler.getNickName());
                                 sr.sendPrintout();
                             }
                         }
