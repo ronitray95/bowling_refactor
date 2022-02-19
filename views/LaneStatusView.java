@@ -1,3 +1,4 @@
+package views;
 /**
  * To change this generated comment edit the template variable "typecomment":
  * Window>Preferences>Java>Templates.
@@ -9,6 +10,13 @@ import models.LaneEvent;
 import models.PinsetterEvent;
 
 import javax.swing.*;
+
+import views.PinSetterView;
+import common.Lane;
+import views.LaneView;
+import common.Pinsetter;
+import common.Util;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -56,17 +64,17 @@ public class LaneStatusView implements ActionListener, Observer {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
 
-        viewLane = Utilities.createButton("View Lane", this);
+        viewLane = Util.createButton("View Lane", this);
         JPanel viewLanePanel = new JPanel();
         viewLanePanel.setLayout(new FlowLayout());
         viewLanePanel.add(viewLane);
 
-        viewPinSetter = Utilities.createButton("Pinsetter", this);
+        viewPinSetter = Util.createButton("Pinsetter", this);
         JPanel viewPinSetterPanel = new JPanel();
         viewPinSetterPanel.setLayout(new FlowLayout());
         viewPinSetterPanel.add(viewPinSetter);
 
-        maintenance = Utilities.createButton("Resume", this);
+        maintenance = Util.createButton("Resume", this);
         maintenance.setBackground(Color.GREEN);
         JPanel maintenancePanel = new JPanel();
         maintenancePanel.setLayout(new FlowLayout());

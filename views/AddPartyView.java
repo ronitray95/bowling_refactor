@@ -1,3 +1,4 @@
+package views;
 /* AddPartyView.java
  *
  *  Version:
@@ -19,17 +20,27 @@
  *
  *
  */
-
-import models.Bowler;
-
-import javax.swing.*;
-import javax.swing.border.TitledBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
+import models.Bowler;
+import common.BowlerFile;
+import common.Util;
 
 /**
  * Class for GUI components need to add a party
@@ -106,7 +117,7 @@ public class AddPartyView implements ActionListener, ListSelectionListener {
         String[] buttonLabels = {"Add to Party", "Remove Member", "New Patron", "Finished"};
 
         for (int i = 0; i < 4; i++) {
-            patronButtons[i] = Utilities.createButton(buttonLabels[i], this);
+            patronButtons[i] = Util.createButton(buttonLabels[i], this);
             JPanel jPanel = new JPanel();
             jPanel.setLayout(new FlowLayout());
             jPanel.add(patronButtons[i]);
@@ -213,7 +224,7 @@ public class AddPartyView implements ActionListener, ListSelectionListener {
     /**
      * Accessor for Party
      */
-    // public Vector<String> getParty() {
-    //     return party;
-    // }
+    public Vector<String> getParty() {
+        return party;
+    }
 }

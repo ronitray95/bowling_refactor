@@ -1,3 +1,4 @@
+package common;
 /**
  * To change this generated comment edit the template variable "typecomment":
  * Window>Preferences>Java>Templates.
@@ -64,14 +65,14 @@ public class EndGameReport implements ActionListener, ListSelectionListener {
 
 //        Insets buttonMargin = new Insets(4, 4, 4, 4);
 
-        printButton = Utilities.createButton("Print Report", this);//new JButton("Print Report");
+        printButton = Util.createButton("Print Report", this);//new JButton("Print Report");
 //        printButton.setMargin(buttonMargin);
         JPanel printButtonPanel = new JPanel();
         printButtonPanel.setLayout(new FlowLayout());
 //        printButton.addActionListener(this);
         printButtonPanel.add(printButton);
 
-        finished = Utilities.createButton("Finished", this);
+        finished = Util.createButton("Finished", this);
         JPanel finishedPanel = new JPanel();
         finishedPanel.setLayout(new FlowLayout());
         finishedPanel.add(finished);

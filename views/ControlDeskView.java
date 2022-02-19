@@ -1,3 +1,4 @@
+package views;
 /* ControlDeskView.java
  *
  *  Version:
@@ -8,11 +9,11 @@
  *
  */
 
-import models.ControlDeskEvent;
-
-import javax.swing.*;
-import javax.swing.border.TitledBorder;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -21,6 +22,19 @@ import java.util.HashSet;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.border.TitledBorder;
+import javax.swing.text.Utilities;
+
+import common.ControlDesk;
+import common.Lane;
+import common.Util;
+import models.ControlDeskEvent;
 
 /**
  * Class for representation of the control desk
@@ -60,21 +74,21 @@ public class ControlDeskView implements ActionListener, Observer {
         controlsPanel.setLayout(new GridLayout(3, 1));
         controlsPanel.setBorder(new TitledBorder("Controls"));
 
-        addParty = Utilities.createButton("Add Party", this);
+        addParty = Util.createButton("Add Party", this);
         JPanel addPartyPanel = new JPanel();
         addPartyPanel.setLayout(new FlowLayout());
         //addParty.addActionListener(this);
         addPartyPanel.add(addParty);
         controlsPanel.add(addPartyPanel);
 
-        assign = Utilities.createButton("Assign Lanes", this);
+        assign = Util.createButton("Assign Lanes", this);
         JPanel assignPanel = new JPanel();
         assignPanel.setLayout(new FlowLayout());
         //assign.addActionListener(this);
         assignPanel.add(assign);
 //		controlsPanel.add(assignPanel);
 
-        finished = Utilities.createButton("Finished", this);
+        finished = Util.createButton("Finished", this);
         JPanel finishedPanel = new JPanel();
         finishedPanel.setLayout(new FlowLayout());
         //finished.addActionListener(this);

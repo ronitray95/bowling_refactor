@@ -1,3 +1,5 @@
+package views;
+
 /*
  *  constructs a prototype Lane View
  *
@@ -16,6 +18,9 @@ import java.awt.event.WindowEvent;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector;
+
+import common.Lane;
+import common.Util;
 
 public class LaneView implements ActionListener, Observer {
 
@@ -149,7 +154,7 @@ public class LaneView implements ActionListener, Observer {
                 buttonPanel.setLayout(new FlowLayout());
 
 
-                maintenance = Utilities.createButton("Maintenance Call", this);
+                maintenance = Util.createButton("Maintenance Call", this);
                 JPanel maintenancePanel = new JPanel();
                 maintenancePanel.setLayout(new FlowLayout());
                 maintenancePanel.add(maintenance);

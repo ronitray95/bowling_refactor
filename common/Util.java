@@ -1,9 +1,10 @@
+package common;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
 
-public class Utilities {
+public class Util {
 
     public static String getCurrentDateString() {
         Calendar cal = Calendar.getInstance();

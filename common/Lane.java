@@ -1,3 +1,4 @@
+package common;
 /* $Id$
  *
  * Revisions:
@@ -211,7 +212,7 @@ public class Lane extends Thread implements Observer {
                     if (frameNumber == 9) {
                         finalScores[bowlIndex][gameNumber] = cumulScores[bowlIndex][9];
                         try {
-                            String dateString = Utilities.getCurrentDateString();
+                            String dateString = Util.getCurrentDateString();
                             ScoreHistoryFile.addScore(currentThrower.getNickName(), dateString, Integer.toString(cumulScores[bowlIndex][9]));
                         } catch (Exception e) {
                             System.err.println("Exception in addScore. " + e);

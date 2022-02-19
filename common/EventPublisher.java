@@ -1,3 +1,4 @@
+package common;
 import java.util.Observable;
 
 public class EventPublisher extends Observable {
