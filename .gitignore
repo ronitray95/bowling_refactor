@@ -38,3 +38,4 @@ org.eclipse.*
 # Score Output
 SCOREHISTORY.DAT
 *.dat
+*.DAT

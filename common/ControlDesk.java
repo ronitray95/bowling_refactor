@@ -36,20 +36,21 @@ package common;
  *
  */
 
-import models.Bowler;
+// import models.Bowler;
 import models.ControlDeskEvent;
 import models.Party;
 
-import java.io.IOException;
+// import java.io.IOException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Observer;
-import java.util.Vector;
+// import java.util.Vector;
 
+// import common.regParty;
 /**
  * Class that represents control desk
  */
-public class ControlDesk extends Thread {
+public class ControlDesk extends Thread{
 
     /**
      * The collection of Lanes
@@ -59,17 +60,17 @@ public class ControlDesk extends Thread {
     /**
      * The party wait queue
      */
-    private final Queue partyQueue;
+    // private final Queue partyQueue;
 
     /**
      * The number of lanes represented
      */
-    private final int numLanes;
+    // private final int numLanes;
 
     /**
      * Acts as an observable that publishes events to all the subscribers of Control Desk.
      */
-    private final EventPublisher eventPublisher;
+    private static EventPublisher eventPublisher;
 
     /**
      * Constructor for the ControlDesk class
@@ -77,9 +78,9 @@ public class ControlDesk extends Thread {
      * @param numLanes the numbler of lanes to be represented
      */
     public ControlDesk(int numLanes) {
-        this.numLanes = numLanes;
+        // this.numLanes = numLanes;
         lanes = new HashSet<>(numLanes);
-        partyQueue = new Queue();
+        // partyQueue = new Queue();
         eventPublisher = new EventPublisher();
 
         for (int i = 0; i < numLanes; i++)
@@ -108,21 +109,22 @@ public class ControlDesk extends Thread {
      * @param nickName The NickName of the Bowler
      * @return a Bowler object.
      */
-    private Bowler registerPatron(String nickName) {
-        Bowler patron = null;
-        try {
-            // only one patron / nick.... no dupes, no checks
-            patron = BowlerFile.getBowlerInfo(nickName);
-        } catch (IOException e) {
-            System.err.println("Error..." + e);
-        }
-        return patron;
-    }
+    // private Bowler registerPatron(String nickName) {
+    //     Bowler patron = null;
+    //     try {
+    //         // only one patron / nick.... no dupes, no checks
+    //         patron = BowlerFile.getBowlerInfo(nickName);
+    //     } catch (IOException e) {
+    //         System.err.println("Error..." + e);
+    //     }
+    //     return patron;
+    // }
 
     /**
      * Iterate through the available lanes and assign the paties in the wait queue if lanes are available.
      */
     public void assignLane() {
+        Queue partyQueue= regParty.fetchPartyQueue();
         Iterator<Lane> it = lanes.iterator();
         while (it.hasNext() && partyQueue.hasMoreElements()) {
             Lane curLane = it.next();
@@ -131,7 +133,7 @@ public class ControlDesk extends Thread {
                 curLane.assignParty(((Party) partyQueue.next()));
             }
         }
-        publish(new ControlDeskEvent(getPartyQueue()));
+        publish(new ControlDeskEvent(regParty.getPartyQueue()));
     }
 
     /*public void viewScores(Lane ln) {
@@ -143,32 +145,32 @@ public class ControlDesk extends Thread {
      *
      * @param partyNicks A Vector of NickNames
      */
-    public void addPartyQueue(Vector<String> partyNicks) {
-        Vector<Bowler> partyBowlers = new Vector<>();
-        for (String partyNick : partyNicks) {
-            Bowler newBowler = registerPatron(partyNick);
-            partyBowlers.add(newBowler);
-        }
-        Party newParty = new Party(partyBowlers);
-        partyQueue.add(newParty);
-        publish(new ControlDeskEvent(getPartyQueue()));
-    }
+    // public void addPartyQueue(Vector<String> partyNicks) {
+    //     Vector<Bowler> partyBowlers = new Vector<>();
+    //     for (String partyNick : partyNicks) {
+    //         Bowler newBowler = registerPatron(partyNick);
+    //         partyBowlers.add(newBowler);
+    //     }
+    //     Party newParty = new Party(partyBowlers);
+    //     partyQueue.add(newParty);
+    //     publish(new ControlDeskEvent(getPartyQueue()));
+    // }
 
     /**
      * Returns a Vector of party names to be displayed in the GUI representation of the wait queue.
      *
      * @return a Vecotr of Strings
      */
-    public Vector<String> getPartyQueue() {
-        Vector<String> displayPartyQueue = new Vector<>();
-        for (int i = 0; i < partyQueue.asVector().size(); i++) {
-            String nextParty = ((Party) partyQueue.asVector().get(i)).getMembers()
-                    .get(0)
-                    .getNickName() + "'s Party";
-            displayPartyQueue.addElement(nextParty);
-        }
-        return displayPartyQueue;
-    }
+    // public Vector<String> getPartyQueue() {
+    //     Vector<String> displayPartyQueue = new Vector<>();
+    //     for (int i = 0; i < partyQueue.asVector().size(); i++) {
+    //         String nextParty = ((Party) partyQueue.asVector().get(i)).getMembers()
+    //                 .get(0)
+    //                 .getNickName() + "'s Party";
+    //         displayPartyQueue.addElement(nextParty);
+    //     }
+    //     return displayPartyQueue;
+    // }
 
     /**
      * Accessor for the number of lanes represented by the ControlDesk
@@ -176,9 +178,9 @@ public class ControlDesk extends Thread {
      * @return an int containing the number of lanes represented
      */
 
-    public int getNumLanes() {
-        return numLanes;
-    }
+    // public int getNumLanes() {
+    //     return numLanes;
+    // }
 
     /**
      * addObserver
@@ -207,7 +209,7 @@ public class ControlDesk extends Thread {
      *
      * @param event the ControlDeskEvent to broadcast
      */
-    public void publish(ControlDeskEvent event) {
+    public static void publish(ControlDeskEvent event) {
         eventPublisher.publish(event);
     }
 

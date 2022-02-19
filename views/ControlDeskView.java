@@ -35,6 +35,7 @@ import common.ControlDesk;
 import common.Lane;
 import common.Util;
 import models.ControlDeskEvent;
+import common.regParty;
 
 /**
  * Class for representation of the control desk
@@ -56,11 +57,11 @@ public class ControlDeskView implements ActionListener, Observer {
     /**
      * Displays a GUI representation of the ControlDesk
      */
-    public ControlDeskView(ControlDesk controlDesk, int maxMembers) {
+    public ControlDeskView(ControlDesk controlDesk, int maxMembers, int numLanes) {
 
         this.controlDesk = controlDesk;
         this.maxMembers = maxMembers;
-        int numLanes = controlDesk.getNumLanes();
+        // int numLanes = controlDesk.getNumLanes();
 
         win = new JFrame("Control Desk");
         win.getContentPane().setLayout(new BorderLayout());
@@ -177,7 +178,7 @@ public class ControlDeskView implements ActionListener, Observer {
      */
 
     public void updateAddParty(AddPartyView addPartyView) {
-        controlDesk.addPartyQueue(addPartyView.getParty());
+        regParty.addPartyQueue(addPartyView.getParty());
     }
 
     /*

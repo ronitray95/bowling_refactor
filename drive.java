@@ -13,7 +13,7 @@ public class drive {
         Alley a = new Alley(numLanes);
         ControlDesk controlDesk = a.getControlDesk();
 
-        ControlDeskView cdv = new ControlDeskView(controlDesk, maxPatronsPerParty);
+        ControlDeskView cdv = new ControlDeskView(controlDesk, maxPatronsPerParty, numLanes);
         controlDesk.addObserver(cdv);
 
     }
