@@ -1,3 +1,4 @@
+package common;
 /* ControlDesk.java
  *
  *  Version:
@@ -48,7 +49,7 @@ import java.util.Vector;
 /**
  * Class that represents control desk
  */
-class ControlDesk extends Thread {
+public class ControlDesk extends Thread {
 
     /**
      * The collection of Lanes

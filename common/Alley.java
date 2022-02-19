@@ -1,3 +1,4 @@
+package common;
 /*
  * Alley.java
  *

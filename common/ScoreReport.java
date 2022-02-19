@@ -1,3 +1,4 @@
+package common;
 /**
  * SMTP implementation based on code by R�al Gagnon mailto:real@rgagnon.com
  */

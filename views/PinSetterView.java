@@ -1,3 +1,5 @@
+package views;
+
 /*
  * PinSetterView/.java
  *

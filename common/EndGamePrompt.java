@@ -1,3 +1,4 @@
+package common;
 /**
  * To change this generated comment edit the template variable "typecomment":
  * Window>Preferences>Java>Templates.
@@ -44,12 +45,12 @@ public class EndGamePrompt implements ActionListener {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(1, 2));
 
-        yesButton = Utilities.createButton("Yes", this);
+        yesButton = Util.createButton("Yes", this);
         JPanel yesButtonPanel = new JPanel();
         yesButtonPanel.setLayout(new FlowLayout());
         yesButtonPanel.add(yesButton);
 
-        noButton = Utilities.createButton("No", this);
+        noButton = Util.createButton("No", this);
         JPanel noButtonPanel = new JPanel();
         noButtonPanel.setLayout(new FlowLayout());
         noButtonPanel.add(noButton);

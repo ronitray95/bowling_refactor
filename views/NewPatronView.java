@@ -1,3 +1,5 @@
+package views;
+
 /* AddPartyView.java
  *
  *  Version
@@ -16,6 +18,8 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import common.Util;
 
 /**
  * Class for GUI components need to add a patron
@@ -82,12 +86,12 @@ public class NewPatronView implements ActionListener {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(4, 1));
 
-        finished = Utilities.createButton("Add Patron", this);
+        finished = Util.createButton("Add Patron", this);
         JPanel finishedPanel = new JPanel();
         finishedPanel.setLayout(new FlowLayout());
         finishedPanel.add(finished);
 
-        abort = Utilities.createButton("Abort", this);
+        abort = Util.createButton("Abort", this);
         JPanel abortPanel = new JPanel();
         abortPanel.setLayout(new FlowLayout());
         abortPanel.add(abort);

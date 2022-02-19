@@ -1,3 +1,4 @@
+package common;
 /* BowlerFile.java
  *
  *  Version:
@@ -25,7 +26,7 @@ import java.util.Vector;
 /**
  * Class for interfacing with Bowler database
  */
-class BowlerFile {
+public class BowlerFile {
 
     /**
      * The location of the bowelr database
