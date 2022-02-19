@@ -28,21 +28,23 @@ public class LaneEvent {
 
     private final Party p;
     public boolean isPartyAssigned;
-    int frame;
-    int ball;
+    // int frame;
+    FrameInfo frameInfo;
+    // int ball;
     Bowler bowler;
     ScoreData scoreData;
-    int index;
-    int frameNum;
+    // int index;
+    // int frameNum;
     boolean mechProb;
 
-    public LaneEvent(Party pty, int theIndex, Bowler theBowler, ScoreData scoreDataVal, int theFrameNum, int theBall, boolean mechProblem, boolean isPartyAssignedVal) {
+    public LaneEvent(Party pty,FrameInfo frameInfoVal, Bowler theBowler, ScoreData scoreDataVal, boolean mechProblem, boolean isPartyAssignedVal) {
         p = pty;
-        index = theIndex;
+        // index = theIndex;
+        frameInfo = frameInfoVal;
         bowler = theBowler;
         scoreData = scoreDataVal;
-        frameNum = theFrameNum;
-        ball = theBall;
+        // frameNum = theFrameNum;
+        // ball = theBall;
         mechProb = mechProblem;
         isPartyAssigned = isPartyAssignedVal;
     }
@@ -51,21 +53,25 @@ public class LaneEvent {
         return mechProb;
     }
 
-    public int getFrameNum() {
-        return frameNum;
+    public FrameInfo getFrameInfo(){
+        return frameInfo;
     }
 
-    public int getIndex() {
-        return index;
-    }
+    // public int getFrameNum() {
+    //     return frameNum;
+    // }
 
-    public int getFrame() {
-        return frame;
-    }
+    // public int getIndex() {
+    //     return index;
+    // }
 
-    public int getBall() {
-        return ball;
-    }
+    // // public int getFrame() {
+    // //     return frame;
+    // // }
+
+    // public int getBall() {
+    //     return ball;
+    // }
 
     public ScoreData getScoreData() {
         return scoreData;

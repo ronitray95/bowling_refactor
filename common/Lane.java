@@ -413,7 +413,8 @@ public class Lane extends Thread implements Observer {
      */
     private LaneEvent lanePublish() {
         ScoreData scoreData = new ScoreData(cumulScores, scores, curScores);
-        return new LaneEvent(party, bowlIndex, currentThrower, scoreData, frameNumber + 1, ball, gameIsHalted, isPartyAssigned());
+        FrameInfo frameInfo = new FrameInfo(bowlIndex, frameNumber+1, ball);
+        return new LaneEvent(party, frameInfo, currentThrower, scoreData, gameIsHalted, isPartyAssigned());
     }
 
     /**
