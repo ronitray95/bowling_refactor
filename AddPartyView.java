@@ -213,7 +213,7 @@ public class AddPartyView implements ActionListener, ListSelectionListener {
     /**
      * Accessor for Party
      */
-    // public Vector<String> getParty() {
-    //     return party;
-    // }
+    public Vector<String> getParty() {
+        return party;
+    }
 }
