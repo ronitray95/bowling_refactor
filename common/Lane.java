@@ -212,8 +212,7 @@ public class Lane extends Thread implements Observer {
                     if (frameNumber == 9) {
                         finalScores[bowlIndex][gameNumber] = cumulScores[bowlIndex][9];
                         try {
-                            String dateString = Util.getCurrentDateString();
-                            ScoreHistoryFile.addScore(currentThrower.getNickName(), dateString, Integer.toString(cumulScores[bowlIndex][9]));
+                            ScoreHistoryFile.addScore(currentThrower.getNickName(), Integer.toString(cumulScores[bowlIndex][9]));
                         } catch (Exception e) {
                             System.err.println("Exception in addScore. " + e);
                         }
@@ -224,7 +223,7 @@ public class Lane extends Thread implements Observer {
 
                 } else {
                     frameNumber++;
-                    resetBowlerIterator();
+                    bowlerIterator = (party.getMembers()).iterator();
                     bowlIndex = 0;
                     if (frameNumber > 9) {
                         gameFinished = true;
@@ -232,43 +231,17 @@ public class Lane extends Thread implements Observer {
                     }
                 }
             } else if (partyAssigned) {
-                EndGamePrompt egp = new EndGamePrompt(party.getMembers().get(0).getNickName() + "'s Party");
-                int result = egp.getResult();
-                egp.destroy();
-                egp = null;
-
-
-                System.out.println("result was: " + result);
+                boolean result = LaneGameFinished.handle(party, currentThrower, finalScores, gameNumber);
+                System.out.println("result was: " + (result ? 1 : 2));
 
                 // TODO: send record of scores to control desk
-                if (result == 1) {                    // yes, want to play again
+                if (result == true) {                    // yes, want to play again
                     resetScores();
-                    resetBowlerIterator();
-
-                } else if (result == 2) {// no, dont want to play another game
-                    Vector<String> printVector;
-                    EndGameReport egr = new EndGameReport(party.getMembers().get(0).getNickName() + "'s Party", party);
-                    printVector = egr.getResult();
+                    bowlerIterator = (party.getMembers()).iterator();
+                } else {// no, dont want to play another game
                     partyAssigned = false;
-                    Iterator<Bowler> scoreIt = party.getMembers().iterator();
                     party = null;
-                    partyAssigned = false;
-
-                    publish(lanePublish());
-
-                    int myIndex = 0;
-                    while (scoreIt.hasNext()) {
-                        Bowler thisBowler = scoreIt.next();
-                        ScoreReport sr = new ScoreReport(thisBowler, finalScores[myIndex++], gameNumber);
-                        sr.sendEmail(thisBowler.getEmail());
-                        for (String s : printVector) {
-                            if (Objects.equals(thisBowler.getNickName(), s)) {
-                                System.out.println("Printing " + thisBowler.getNickName());
-                                sr.sendPrintout();
-                            }
-                        }
-
-                    }
+                    publish();
                 }
             }
 
@@ -292,8 +265,13 @@ public class Lane extends Thread implements Observer {
     public void update(Observable pinsetterObservable, Object pinsetterEvent) {
         PinsetterEvent pe = (PinsetterEvent)pinsetterEvent;
         if (pe.pinsDownOnThisThrow() >= 0) {            // this is a real throw
-            markScore(currentThrower, frameNumber + 1, pe.getThrowNumber(), pe.pinsDownOnThisThrow());
-
+            int[] curScore;
+            int index = ((frameNumber) * 2 + pe.getThrowNumber());
+            curScore = scores.get(currentThrower);
+            curScore[index - 1] = pe.pinsDownOnThisThrow();
+            scores.put(currentThrower, curScore);
+            getScore(currentThrower, frameNumber+1);
+            publish();
             // next logic handles the ?: what conditions dont allow them another throw?
             // handle the case of 10th frame first
             if (frameNumber == 9) {
@@ -330,18 +308,6 @@ public class Lane extends Thread implements Observer {
     }
 
     /**
-     * resetBowlerIterator()
-     * <p>
-     * sets the current bower iterator back to the first bowler
-     *
-     * @pre the party as been assigned
-     * @post the iterator points to the first bowler in the party
-     */
-    private void resetBowlerIterator() {
-        bowlerIterator = (party.getMembers()).iterator();
-    }
-
-    /**
      * resetScores()
      * <p>
      * resets the scoring mechanism, must be called before scoring starts
@@ -372,7 +338,7 @@ public class Lane extends Thread implements Observer {
      */
     public void assignParty(Party theParty) {
         party = theParty;
-        resetBowlerIterator();
+        bowlerIterator = (party.getMembers()).iterator();
         partyAssigned = true;
 
         curScores = new int[party.getMembers().size()];
@@ -381,40 +347,6 @@ public class Lane extends Thread implements Observer {
         gameNumber = 0;
 
         resetScores();
-    }
-
-    /**
-     * markScore()
-     * <p>
-     * Method that marks a bowlers score on the board.
-     *
-     * @param Cur   The current bowler
-     * @param frame The frame that bowler is on
-     * @param ball  The ball the bowler is on
-     * @param score The bowler's score
-     */
-    private void markScore(Bowler Cur, int frame, int ball, int score) {
-        int[] curScore;
-        int index = ((frame - 1) * 2 + ball);
-
-        curScore = scores.get(Cur);
-        curScore[index - 1] = score;
-        scores.put(Cur, curScore);
-        getScore(Cur, frame);
-        publish(lanePublish());
-    }
-
-    /**
-     * lanePublish()
-     * <p>
-     * Method that creates and returns a newly created laneEvent
-     *
-     * @return The new lane event
-     */
-    private LaneEvent lanePublish() {
-        ScoreData scoreData = new ScoreData(cumulScores, scores, curScores);
-        FrameInfo frameInfo = new FrameInfo(bowlIndex, frameNumber+1, ball);
-        return new LaneEvent(party, frameInfo, currentThrower, scoreData, gameIsHalted, isPartyAssigned());
     }
 
     /**
@@ -480,10 +412,12 @@ public class Lane extends Thread implements Observer {
      * @param event Event that is to be published
      */
 
-    public void publish(LaneEvent event) {
+    public void publish() {
+        ScoreData scoreData = new ScoreData(cumulScores, scores, curScores);
+        FrameInfo frameInfo = new FrameInfo(bowlIndex, frameNumber+1, ball);
+        LaneEvent event = new LaneEvent(party, frameInfo, currentThrower, scoreData, gameIsHalted, isPartyAssigned());
         eventPublisher.publish(event);
     }
-
 
     /**
      * Accessor to get this Lane's pinsetter
@@ -500,7 +434,7 @@ public class Lane extends Thread implements Observer {
      */
     public void pauseGame() {
         gameIsHalted = true;
-        publish(lanePublish());
+        publish();
     }
 
     /**
@@ -508,6 +442,6 @@ public class Lane extends Thread implements Observer {
      */
     public void unPauseGame() {
         gameIsHalted = false;
-        publish(lanePublish());
+        publish();
     }
 }
