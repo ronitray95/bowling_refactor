@@ -6,15 +6,16 @@ package common;
  * Window>Preferences>Java>Code Generation.
  */
 
-import models.Score;
+import models.*;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Vector;
+import java.util.*;
 
-public class ScoreHistoryFile {
+public class ScoreHistoryFile implements Observer {
 
 	private static final String SCOREHISTORY_DAT = "SCOREHISTORY.DAT";
 
@@ -41,4 +42,14 @@ public class ScoreHistoryFile {
 		}
 		return scores;
 	}
+
+    public void update(Observable planeObservable, Object laneEvent) {
+        LaneEvent ev = (LaneEvent)laneEvent; 
+        try {
+            addScore(ev.getBowler().getNickName(), Integer.toString(ev.getScoreData().getCumulScore()[ev.getFrameInfo().getIndex()][9]));
+            // ScoreHistoryFile.addScore(currentThrower.getNickName(), Integer.toString(cumulScores[bowlIndex][9]));
+        } catch (Exception e) {
+            System.err.println("Exception in addScore. " + e);
+        }
+    }
 }

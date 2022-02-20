@@ -211,11 +211,7 @@ public class Lane extends Thread implements Observer {
 
                     if (frameNumber == 9) {
                         finalScores[bowlIndex][gameNumber] = cumulScores[bowlIndex][9];
-                        try {
-                            ScoreHistoryFile.addScore(currentThrower.getNickName(), Integer.toString(cumulScores[bowlIndex][9]));
-                        } catch (Exception e) {
-                            System.err.println("Exception in addScore. " + e);
-                        }
+                        publish();
                     }
 
                     setter.reset();

@@ -32,4 +32,8 @@ public class LaneGameFinished {
             return true;
         }
     }
+
+    // public static generateScoreHistoryFile(){
+    //     currentThrower.getNickName(), Integer.toString(ev.getScoreData().getCumulScore()[bowlIndex][9])
+    // }
 }
