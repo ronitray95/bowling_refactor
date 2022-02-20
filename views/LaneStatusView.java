@@ -117,11 +117,14 @@ public class LaneStatusView implements ActionListener, Observer {
         }
         if (e.getSource().equals(viewLane)) {
             if (lane.isPartyAssigned()) {
+                JFrame frame = lv.getFrame();
                 if (!laneShowing) {
-                    lv.show();
+                    frame.setVisible(true);
+                    // lv.show();
                     laneShowing = true;
                 } else {
-                    lv.hide();
+                    frame.setVisible(false);
+                    // lv.hide();
                     laneShowing = false;
                 }
             }
