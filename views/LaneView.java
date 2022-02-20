@@ -58,14 +58,10 @@ public class LaneView implements ActionListener, Observer {
 
     }
 
-    public void show() {
-        frame.setVisible(true);
+    public JFrame getFrame(){
+        return frame;
     }
-
-    public void hide() {
-        frame.setVisible(false);
-    }
-
+    
     private JPanel makeFrame(Party party) {
 
         initDone = false;
