@@ -18,7 +18,8 @@ public class ScoreHistoryFile {
 
 	private static final String SCOREHISTORY_DAT = "SCOREHISTORY.DAT";
 
-	public static void addScore(String nick, String date, String score) throws IOException {
+	public static void addScore(String nick, String score) throws IOException {
+        String date = Util.getCurrentDateString();
         String data = nick + "\t" + date + "\t" + score + "\n";
         RandomAccessFile out = new RandomAccessFile(SCOREHISTORY_DAT, "rw");
         out.skipBytes((int) out.length());
